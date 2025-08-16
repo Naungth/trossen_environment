@@ -1,0 +1,1363 @@
+<mujoco model="toolbox_trossen">
+  <compiler angle="radian" meshdir="assets" autolimits="true" />
+  <option timestep="0.002" impratio="1000" o_solref="0.0001 1" o_solimp="0.0001 1" integrator="implicitfast" cone="pyramidal" solver="Newton">
+    <flag override="enable" multiccd="disable"/>
+  </option>
+  <visual>
+    <global offwidth="1280" offheight="720"/>
+  </visual>
+  <default>
+        <!--Robot defaults-->
+        <default class="robot/visual">
+          <geom type="mesh" contype="0" conaffinity="0" density="0" group="2" material="robot/black"/>
+        </default>
+
+        <default class="robot/collision">
+        <geom group="3" type="mesh"
+              friction="2.0 0.005 0.001"
+              condim="6"
+              solref="0.01 1" />
+        </default>
+
+        <default class="joint_0">
+          <joint axis="0 0 1" range="-3.05433 3.05433" actuatorfrcrange="-27 27" actuatorgravcomp="true"  damping="8.76"/>
+          <position ctrlrange="-3.05433 3.05433" kp="43"/>
+        </default>
+
+        <default class="joint_1">
+          <joint axis="0 1 0" range="0 3.14" actuatorfrcrange="-27 27" actuatorgravcomp="true"  armature="0.3952" damping="20" frictionloss="2"/>
+          <position ctrlrange="0 3.14" kp="265"/>
+        </default>
+
+        <default class="joint_2">
+          <joint axis="0 -1 0" range="0 2.35619" actuatorfrcrange="-27 27" actuatorgravcomp="true" armature="0.383" damping="18.49" frictionloss="1.15" />
+          <position ctrlrange="0 2.35619" kp="227"/>
+        </default>
+
+        <default class="joint_3">
+          <joint axis="0 -1 0" range="-1.5708 1.5708"
+                actuatorfrcrange="-12 12" actuatorgravcomp="true"
+                armature="0.008002" damping="6.282"/>
+          <position ctrlrange="-1.5708 1.5708" kp="40"/>
+        </default>
+
+        <default class="joint_4">
+          <joint axis="0 0 -1" range="-1.5708 1.5708" actuatorfrcrange="-7 7" actuatorgravcomp="true" armature="0.14" damping="4.78"/>
+          <position ctrlrange="-1.5708 1.5708" kp="95"/>
+        </default>
+
+        <default class="joint_5">
+          <joint axis="1 0 0" range="-3.14159 3.14159" actuatorfrcrange="-7 7" actuatorgravcomp="true" damping="2.2"/> 
+          <position ctrlrange="-3.14159 3.14159" kp="10.4"/>
+        </default>
+
+        <default class="gripper">
+          <joint type="slide" armature="0.05" damping="40" frictionloss="1"
+                actuatorfrcrange="-400 400" actuatorgravcomp="true" range="0 0.044"/>
+          <position ctrlrange="0 0.044" kp="2000" kv="124"/>
+        </default>
+      
+       <default class="visual">
+      <geom group="2" type="mesh" contype="0" conaffinity="0" material="robot/black"/>
+    </default>
+
+           <default class="toolbox">
+              <geom group="2" type="mesh" contype="0" conaffinity="0" material="toolbox"/>
+            </default>
+    
+
+            <default class="visual/tools">
+              <geom group="2" type="mesh" contype="0" conaffinity="0" material="tools"/>
+            </default>
+
+            <default class="collision">
+            <geom group="3" type="mesh" density="7800"/>
+          </default>
+            <default class="general">
+              <geom group="2" type="mesh"/>
+            </default>
+            <default class="free_joints">
+              <!-- viscous damping on wrench freejoint  -->
+              <joint damping="0.05" frictionloss="0.1"/>
+            </default>
+  </default>
+
+  <asset>
+    <texture name="grid" type="2d" builtin="checker" rgb1="0.20000000000000001 0.29999999999999999 0.40000000000000002" rgb2="0.10000000000000001 0.20000000000000001 0.29999999999999999" mark="cross" markrgb="0 0 0" width="256" height="256"/>
+    <material name="grid" texture="grid" texrepeat="1 1" texuniform="true"/>
+  
+    <material name="tools" rgba="0.2 0.2 0.2 1"/>
+    <material name="toolbox" rgba="0.4 0.4 0.4 1"/>
+    <material name="gray_floor" rgba="0.3 0.3 0.3 1"/>
+
+
+    <mesh name="tool1" file="tool1.obj"/>
+    <mesh name="tool2" file="tool2.obj"/>
+    
+    <mesh name="tool3_lower" file="tool3_lower.obj"/>
+    <mesh name="tool3_middle" file="tool3_middle.obj"/>
+    <mesh name="tool3_upper" file="tool3_upper.obj"/>
+
+          <!--- robot textures & materials -->
+    <texture name="trossen_black" type="2d" file="assets/trossen_black.png"/>
+    <material name="robot/black" texture="trossen_black"/>
+
+    <texture name="sky" type="skybox" builtin="gradient" rgb1="0.35 0.45 0.75"   rgb2="0.80 0.90 1.00" width="512" height="512"/>
+
+    <!--- robot visual meshes -->
+    <mesh name="base_link" file="base_link.stl" />
+    <mesh name="link_1" file="link_1.stl" />
+    <mesh name="link_2" file="link_2.stl" />
+    <mesh name="link_3" file="link_3.stl" />
+    <mesh name="link_4" file="link_4.stl" />
+    <mesh name="link_5" file="link_5.stl" />
+    <mesh name="link_6" file="link_6.stl" />
+    <mesh name="carriage_left" file="carriage_left.stl" />
+    <mesh name="carriage_right" file="carriage_right.stl" />
+    <mesh name="gripper_right" file="gripper_right.stl" />
+    <mesh name="gripper_left" file="gripper_left.stl" />
+    <mesh name="camera_mount_d405" file="camera_mount_d405.stl" />
+    <mesh name="d405_solid" file="d405_solid.stl" />
+
+    <!--- robot collision geoms -->
+    <mesh name="gr_left_c0" file="gripper_left_collision_geom_0.obj"/>
+    <mesh name="gr_left_c1" file="gripper_left_collision_geom_1.obj"/>
+    <mesh name="gr_left_c2" file="gripper_left_collision_geom_2.obj"/>
+    <mesh name="gr_left_c3" file="gripper_left_collision_geom_3.obj"/>
+    <mesh name="gr_right_c0" file="gripper_right_collision_geom_0.obj"/>
+    <mesh name="gr_right_c1" file="gripper_right_collision_geom_1.obj"/>
+    <mesh name="gr_right_c2" file="gripper_right_collision_geom_2.obj"/>
+    <mesh name="gr_right_c3" file="gripper_right_collision_geom_3.obj"/>
+
+    
+    <mesh name="wrench" file="wrench.obj"/>
+    
+    <mesh name="socket17mm" file="socket17mm.obj"/>
+    <mesh name="socket16mm" file="socket16mm.obj"/>
+    <mesh name="socket15mm" file="socket15mm.obj"/>
+    <mesh name="socket14mm" file="socket14mm.obj"/>
+    <mesh name="socket13mm" file="socket13mm.obj"/>
+    <mesh name="socket12mm" file="socket12mm.obj"/>
+    <mesh name="socket11mm" file="socket11mm.obj"/>
+    <mesh name="socket10mm" file="socket10mm.obj"/>
+    <mesh name="socket9mm" file="socket9mm.obj"/>
+    <mesh name="socket8mm" file="socket8mm.obj"/>
+
+    
+    <mesh name="lid"  file="lid.obj"/>
+    <mesh name="bottom" file="bottom.obj"/>
+    
+    <mesh name="fixed_holes_collision_geom_0" file="fixed_holes_collision_geom_0.obj"/>
+    <mesh name="fixed_holes_collision_geom_1" file="fixed_holes_collision_geom_1.obj"/>
+    <mesh name="fixed_holes_collision_geom_3" file="fixed_holes_collision_geom_3.obj"/>
+    <mesh name="fixed_holes_collision_geom_4" file="fixed_holes_collision_geom_4.obj"/>
+    <mesh name="fixed_holes_collision_geom_5" file="fixed_holes_collision_geom_5.obj"/>
+    <mesh name="fixed_holes_collision_geom_7" file="fixed_holes_collision_geom_7.obj"/>
+    <mesh name="fixed_holes_collision_geom_8" file="fixed_holes_collision_geom_8.obj"/>
+    <mesh name="fixed_holes_collision_geom_9" file="fixed_holes_collision_geom_9.obj"/>
+    <mesh name="fixed_holes_collision_geom_10" file="fixed_holes_collision_geom_10.obj"/>
+    <mesh name="fixed_holes_collision_geom_11" file="fixed_holes_collision_geom_11.obj"/>
+    <mesh name="fixed_holes_collision_geom_12" file="fixed_holes_collision_geom_12.obj"/>
+    <mesh name="fixed_holes_collision_geom_13" file="fixed_holes_collision_geom_13.obj"/>
+    <mesh name="fixed_holes_collision_geom_14" file="fixed_holes_collision_geom_14.obj"/>
+    <mesh name="fixed_holes_collision_geom_15" file="fixed_holes_collision_geom_15.obj"/>
+    <mesh name="fixed_holes_collision_geom_16" file="fixed_holes_collision_geom_16.obj"/>
+    <mesh name="fixed_holes_collision_geom_17" file="fixed_holes_collision_geom_17.obj"/>
+    <mesh name="fixed_holes_collision_geom_18" file="fixed_holes_collision_geom_18.obj"/>
+    <mesh name="fixed_holes_collision_geom_20" file="fixed_holes_collision_geom_20.obj"/>
+    <mesh name="fixed_holes_collision_geom_21" file="fixed_holes_collision_geom_21.obj"/>
+    <mesh name="fixed_holes_collision_geom_22" file="fixed_holes_collision_geom_22.obj"/>
+    <mesh name="fixed_holes_collision_geom_23" file="fixed_holes_collision_geom_23.obj"/>
+    <mesh name="fixed_holes_collision_geom_24" file="fixed_holes_collision_geom_24.obj"/>
+    <mesh name="fixed_holes_collision_geom_25" file="fixed_holes_collision_geom_25.obj"/>
+    <mesh name="fixed_holes_collision_geom_26" file="fixed_holes_collision_geom_26.obj"/>
+    <mesh name="fixed_holes_collision_geom_27" file="fixed_holes_collision_geom_27.obj"/>
+    <mesh name="fixed_holes_collision_geom_28" file="fixed_holes_collision_geom_28.obj"/>
+    <mesh name="fixed_holes_collision_geom_29" file="fixed_holes_collision_geom_29.obj"/>
+    <mesh name="fixed_holes_collision_geom_30" file="fixed_holes_collision_geom_30.obj"/>
+    <mesh name="fixed_holes_collision_geom_31" file="fixed_holes_collision_geom_31.obj"/>
+    <mesh name="fixed_holes_collision_geom_32" file="fixed_holes_collision_geom_32.obj"/>
+    <mesh name="fixed_holes_collision_geom_33" file="fixed_holes_collision_geom_33.obj"/>
+    <mesh name="fixed_holes_collision_geom_34" file="fixed_holes_collision_geom_34.obj"/>
+    <mesh name="fixed_holes_collision_geom_35" file="fixed_holes_collision_geom_35.obj"/>
+    <mesh name="fixed_holes_collision_geom_36" file="fixed_holes_collision_geom_36.obj"/>
+    <mesh name="fixed_holes_collision_geom_37" file="fixed_holes_collision_geom_37.obj"/>
+    <mesh name="fixed_holes_collision_geom_38" file="fixed_holes_collision_geom_38.obj"/>
+    <mesh name="fixed_holes_collision_geom_39" file="fixed_holes_collision_geom_39.obj"/>
+    <mesh name="fixed_holes_collision_geom_40" file="fixed_holes_collision_geom_40.obj"/>
+    <mesh name="fixed_holes_collision_geom_41" file="fixed_holes_collision_geom_41.obj"/>
+    <mesh name="fixed_holes_collision_geom_42" file="fixed_holes_collision_geom_42.obj"/>
+    <mesh name="fixed_holes_collision_geom_43" file="fixed_holes_collision_geom_43.obj"/>
+
+    <mesh name="fixed_holes_collision_geom_45" file="fixed_holes_collision_geom_45.obj"/>
+    <mesh name="fixed_holes_collision_geom_46" file="fixed_holes_collision_geom_46.obj"/>
+    <mesh name="fixed_holes_collision_geom_47" file="fixed_holes_collision_geom_47.obj"/>
+    <mesh name="fixed_holes_collision_geom_48" file="fixed_holes_collision_geom_48.obj"/>
+    <mesh name="fixed_holes_collision_geom_49" file="fixed_holes_collision_geom_49.obj"/>
+    <mesh name="fixed_holes_collision_geom_50" file="fixed_holes_collision_geom_50.obj"/>
+    <mesh name="fixed_holes_collision_geom_51" file="fixed_holes_collision_geom_51.obj"/>
+    <mesh name="fixed_holes_collision_geom_52" file="fixed_holes_collision_geom_52.obj"/>
+    <mesh name="fixed_holes_collision_geom_53" file="fixed_holes_collision_geom_53.obj"/>
+    <mesh name="fixed_holes_collision_geom_54" file="fixed_holes_collision_geom_54.obj"/>
+
+    <mesh name="fixed_holes_collision_geom_56" file="fixed_holes_collision_geom_56.obj"/>
+    <mesh name="fixed_holes_collision_geom_57" file="fixed_holes_collision_geom_57.obj"/>
+    <mesh name="fixed_holes_collision_geom_58" file="fixed_holes_collision_geom_58.obj"/>
+    <mesh name="fixed_holes_collision_geom_59" file="fixed_holes_collision_geom_59.obj"/>
+    <mesh name="fixed_holes_collision_geom_60" file="fixed_holes_collision_geom_60.obj"/>
+    <mesh name="fixed_holes_collision_geom_61" file="fixed_holes_collision_geom_61.obj"/>
+    <mesh name="fixed_holes_collision_geom_62" file="fixed_holes_collision_geom_62.obj"/>
+    <mesh name="fixed_holes_collision_geom_63" file="fixed_holes_collision_geom_63.obj"/>
+
+    <mesh name="fixed_holes_collision_geom_65" file="fixed_holes_collision_geom_65.obj"/>
+    <mesh name="fixed_holes_collision_geom_66" file="fixed_holes_collision_geom_66.obj"/>
+    <mesh name="fixed_holes_collision_geom_67" file="fixed_holes_collision_geom_67.obj"/>
+    <mesh name="fixed_holes_collision_geom_68" file="fixed_holes_collision_geom_68.obj"/>
+    <mesh name="fixed_holes_collision_geom_69" file="fixed_holes_collision_geom_69.obj"/>
+    <mesh name="fixed_holes_collision_geom_70" file="fixed_holes_collision_geom_70.obj"/>
+    <mesh name="fixed_holes_collision_geom_71" file="fixed_holes_collision_geom_71.obj"/>
+
+    <mesh name="fixed_holes_collision_geom_73" file="fixed_holes_collision_geom_73.obj"/>
+    <mesh name="fixed_holes_collision_geom_74" file="fixed_holes_collision_geom_74.obj"/>
+    <mesh name="fixed_holes_collision_geom_75" file="fixed_holes_collision_geom_75.obj"/>
+    <mesh name="fixed_holes_collision_geom_76" file="fixed_holes_collision_geom_76.obj"/>
+    <mesh name="fixed_holes_collision_geom_77" file="fixed_holes_collision_geom_77.obj"/>
+    <mesh name="fixed_holes_collision_geom_78" file="fixed_holes_collision_geom_78.obj"/>
+    <mesh name="fixed_holes_collision_geom_79" file="fixed_holes_collision_geom_79.obj"/>
+
+    <mesh name="fixed_holes_collision_geom_81" file="fixed_holes_collision_geom_81.obj"/>
+    <mesh name="fixed_holes_collision_geom_82" file="fixed_holes_collision_geom_82.obj"/>
+    <mesh name="fixed_holes_collision_geom_83" file="fixed_holes_collision_geom_83.obj"/>
+    <mesh name="fixed_holes_collision_geom_84" file="fixed_holes_collision_geom_84.obj"/>
+    <mesh name="fixed_holes_collision_geom_85" file="fixed_holes_collision_geom_85.obj"/>
+    <mesh name="fixed_holes_collision_geom_86" file="fixed_holes_collision_geom_86.obj"/>
+    <mesh name="fixed_holes_collision_geom_87" file="fixed_holes_collision_geom_87.obj"/>
+    <mesh name="fixed_holes_collision_geom_88" file="fixed_holes_collision_geom_88.obj"/>
+    <mesh name="fixed_holes_collision_geom_89" file="fixed_holes_collision_geom_89.obj"/>
+
+    <mesh name="fixed_holes_collision_geom_91" file="fixed_holes_collision_geom_91.obj"/>
+    <mesh name="fixed_holes_collision_geom_92" file="fixed_holes_collision_geom_92.obj"/>
+    <mesh name="fixed_holes_collision_geom_93" file="fixed_holes_collision_geom_93.obj"/>
+    <mesh name="fixed_holes_collision_geom_94" file="fixed_holes_collision_geom_94.obj"/>
+    <mesh name="fixed_holes_collision_geom_95" file="fixed_holes_collision_geom_95.obj"/>
+    <mesh name="fixed_holes_collision_geom_96" file="fixed_holes_collision_geom_96.obj"/>
+    <mesh name="fixed_holes_collision_geom_97" file="fixed_holes_collision_geom_97.obj"/>
+    <mesh name="fixed_holes_collision_geom_98" file="fixed_holes_collision_geom_98.obj"/>
+    <mesh name="fixed_holes_collision_geom_99" file="fixed_holes_collision_geom_99.obj"/>
+    <mesh name="fixed_holes_collision_geom_100" file="fixed_holes_collision_geom_100.obj"/>
+    <mesh name="fixed_holes_collision_geom_101" file="fixed_holes_collision_geom_101.obj"/>
+    <mesh name="fixed_holes_collision_geom_104" file="fixed_holes_collision_geom_104.obj"/>
+    <mesh name="fixed_holes_collision_geom_105" file="fixed_holes_collision_geom_105.obj"/>
+    <mesh name="fixed_holes_collision_geom_106" file="fixed_holes_collision_geom_106.obj"/>
+    <mesh name="fixed_holes_collision_geom_107" file="fixed_holes_collision_geom_107.obj"/>
+    <mesh name="fixed_holes_collision_geom_108" file="fixed_holes_collision_geom_108.obj"/>
+    <mesh name="fixed_holes_collision_geom_109" file="fixed_holes_collision_geom_109.obj"/>
+    <mesh name="fixed_holes_collision_geom_112" file="fixed_holes_collision_geom_112.obj"/>
+    <mesh name="fixed_holes_collision_geom_113" file="fixed_holes_collision_geom_113.obj"/>
+    <mesh name="fixed_holes_collision_geom_116" file="fixed_holes_collision_geom_116.obj"/>
+    <mesh name="fixed_holes_collision_geom_117" file="fixed_holes_collision_geom_117.obj"/>
+    <mesh name="fixed_holes_collision_geom_118" file="fixed_holes_collision_geom_118.obj"/>
+    <mesh name="fixed_holes_collision_geom_119" file="fixed_holes_collision_geom_119.obj"/>
+    <mesh name="fixed_holes_collision_geom_120" file="fixed_holes_collision_geom_120.obj"/>
+    <mesh name="fixed_holes_collision_geom_121" file="fixed_holes_collision_geom_121.obj"/>
+    <mesh name="fixed_holes_collision_geom_122" file="fixed_holes_collision_geom_122.obj"/>
+    <mesh name="fixed_holes_collision_geom_123" file="fixed_holes_collision_geom_123.obj"/>
+    <mesh name="fixed_holes_collision_geom_124" file="fixed_holes_collision_geom_124.obj"/>
+    <mesh name="fixed_holes_collision_geom_125" file="fixed_holes_collision_geom_125.obj"/>
+    <mesh name="fixed_holes_collision_geom_127" file="fixed_holes_collision_geom_127.obj"/>
+    <mesh name="fixed_holes_collision_geom_129" file="fixed_holes_collision_geom_129.obj"/>
+    <mesh name="fixed_holes_collision_geom_131" file="fixed_holes_collision_geom_131.obj"/>
+    <mesh name="fixed_holes_collision_geom_132" file="fixed_holes_collision_geom_132.obj"/>
+    <mesh name="fixed_holes_collision_geom_149" file="fixed_holes_collision_geom_149.obj"/>
+    <mesh name="fixed_holes_collision_geom_150" file="fixed_holes_collision_geom_150.obj"/>
+    <mesh name="fixed_holes_collision_geom_153" file="fixed_holes_collision_geom_153.obj"/>
+    <mesh name="fixed_holes_collision_geom_154" file="fixed_holes_collision_geom_154.obj"/>
+    <mesh name="fixed_holes_collision_geom_159" file="fixed_holes_collision_geom_159.obj"/>
+    <mesh name="fixed_holes_collision_geom_161" file="fixed_holes_collision_geom_161.obj"/>
+    <mesh name="fixed_holes_collision_geom_165" file="fixed_holes_collision_geom_165.obj"/>
+
+    
+    <mesh name="bottom_box_collision_geom_0"  file="bottom_box_collision_geom_0.obj"/>
+    <mesh name="bottom_box_collision_geom_1"  file="bottom_box_collision_geom_1.obj"/>
+    <mesh name="bottom_box_collision_geom_2"  file="bottom_box_collision_geom_2.obj"/>
+    <mesh name="bottom_box_collision_geom_3"  file="bottom_box_collision_geom_3.obj"/>
+    <mesh name="bottom_box_collision_geom_4"  file="bottom_box_collision_geom_4.obj"/>
+    <mesh name="bottom_box_collision_geom_5"  file="bottom_box_collision_geom_5.obj"/>
+    <mesh name="bottom_box_collision_geom_6"  file="bottom_box_collision_geom_6.obj"/>
+    <mesh name="bottom_box_collision_geom_7"  file="bottom_box_collision_geom_7.obj"/>
+    <mesh name="bottom_box_collision_geom_8"  file="bottom_box_collision_geom_8.obj"/>
+    <mesh name="bottom_box_collision_geom_9"  file="bottom_box_collision_geom_9.obj"/>
+    <mesh name="bottom_box_collision_geom_10" file="bottom_box_collision_geom_10.obj"/>
+    <mesh name="bottom_box_collision_geom_11" file="bottom_box_collision_geom_11.obj"/>
+    <mesh name="bottom_box_collision_geom_12" file="bottom_box_collision_geom_12.obj"/>
+    <mesh name="bottom_box_collision_geom_13" file="bottom_box_collision_geom_13.obj"/>
+    <mesh name="bottom_box_collision_geom_14" file="bottom_box_collision_geom_14.obj"/>
+    <mesh name="bottom_box_collision_geom_15" file="bottom_box_collision_geom_15.obj"/>
+    <mesh name="bottom_box_collision_geom_16" file="bottom_box_collision_geom_16.obj"/>
+    <mesh name="bottom_box_collision_geom_17" file="bottom_box_collision_geom_17.obj"/>
+    <mesh name="bottom_box_collision_geom_18" file="bottom_box_collision_geom_18.obj"/>
+
+    
+    
+    <mesh name="socket8mm_collision_geom_0" file="socket8mm_collision_geom_0.obj"/>
+    <mesh name="socket8mm_collision_geom_1"  file="socket8mm_collision_geom_1.obj"/>
+    <mesh name="socket8mm_collision_geom_2"  file="socket8mm_collision_geom_2.obj"/>
+    <mesh name="socket8mm_collision_geom_3"  file="socket8mm_collision_geom_3.obj"/>
+    <mesh name="socket8mm_collision_geom_4"  file="socket8mm_collision_geom_4.obj"/>
+    <mesh name="socket8mm_collision_geom_5"  file="socket8mm_collision_geom_5.obj"/>
+    <mesh name="socket8mm_collision_geom_6"  file="socket8mm_collision_geom_6.obj"/>
+    <mesh name="socket8mm_collision_geom_7"  file="socket8mm_collision_geom_7.obj"/>
+    <mesh name="socket8mm_collision_geom_8"  file="socket8mm_collision_geom_8.obj"/>
+    <mesh name="socket8mm_collision_geom_9"  file="socket8mm_collision_geom_9.obj"/>
+    <mesh name="socket8mm_collision_geom_10" file="socket8mm_collision_geom_10.obj"/>
+    <mesh name="socket8mm_collision_geom_11" file="socket8mm_collision_geom_11.obj"/>
+    <mesh name="socket8mm_collision_geom_12" file="socket8mm_collision_geom_12.obj"/>
+    <mesh name="socket8mm_collision_geom_13" file="socket8mm_collision_geom_13.obj"/>
+    <mesh name="socket8mm_collision_geom_14" file="socket8mm_collision_geom_14.obj"/>
+    <mesh name="socket8mm_collision_geom_15" file="socket8mm_collision_geom_15.obj"/>
+    <mesh name="socket8mm_collision_geom_16" file="socket8mm_collision_geom_16.obj"/>
+    <mesh name="socket8mm_collision_geom_17" file="socket8mm_collision_geom_17.obj"/>
+    <mesh name="socket8mm_collision_geom_18" file="socket8mm_collision_geom_18.obj"/>
+    <mesh name="socket8mm_collision_geom_19" file="socket8mm_collision_geom_19.obj"/>
+    <mesh name="socket8mm_collision_geom_20" file="socket8mm_collision_geom_20.obj"/>
+    <mesh name="socket8mm_collision_geom_21" file="socket8mm_collision_geom_21.obj"/>
+    <mesh name="socket8mm_collision_geom_22" file="socket8mm_collision_geom_22.obj"/>
+    <mesh name="socket8mm_collision_geom_23" file="socket8mm_collision_geom_23.obj"/>
+    <mesh name="socket8mm_collision_geom_24" file="socket8mm_collision_geom_24.obj"/>
+    <mesh name="socket8mm_collision_geom_25" file="socket8mm_collision_geom_25.obj"/>
+    <mesh name="socket8mm_collision_geom_26" file="socket8mm_collision_geom_26.obj"/>
+    <mesh name="socket8mm_collision_geom_27" file="socket8mm_collision_geom_27.obj"/>
+    <mesh name="socket8mm_collision_geom_28" file="socket8mm_collision_geom_28.obj"/>
+    <mesh name="socket8mm_collision_geom_29" file="socket8mm_collision_geom_29.obj"/>
+    
+    <mesh name="socket9mm_collision_geom_0"  file="socket9mm_collision_geom_0.obj"/>
+    <mesh name="socket9mm_collision_geom_1"  file="socket9mm_collision_geom_1.obj"/>
+    <mesh name="socket9mm_collision_geom_2"  file="socket9mm_collision_geom_2.obj"/>
+    <mesh name="socket9mm_collision_geom_3"  file="socket9mm_collision_geom_3.obj"/>
+    <mesh name="socket9mm_collision_geom_4"  file="socket9mm_collision_geom_4.obj"/>
+    <mesh name="socket9mm_collision_geom_5"  file="socket9mm_collision_geom_5.obj"/>
+    <mesh name="socket9mm_collision_geom_6"  file="socket9mm_collision_geom_6.obj"/>
+    <mesh name="socket9mm_collision_geom_7"  file="socket9mm_collision_geom_7.obj"/>
+    <mesh name="socket9mm_collision_geom_8"  file="socket9mm_collision_geom_8.obj"/>
+    <mesh name="socket9mm_collision_geom_9"  file="socket9mm_collision_geom_9.obj"/>
+    <mesh name="socket9mm_collision_geom_10" file="socket9mm_collision_geom_10.obj"/>
+    <mesh name="socket9mm_collision_geom_11" file="socket9mm_collision_geom_11.obj"/>
+    <mesh name="socket9mm_collision_geom_12" file="socket9mm_collision_geom_12.obj"/>
+    <mesh name="socket9mm_collision_geom_13" file="socket9mm_collision_geom_13.obj"/>
+    <mesh name="socket9mm_collision_geom_14" file="socket9mm_collision_geom_14.obj"/>
+    <mesh name="socket9mm_collision_geom_15" file="socket9mm_collision_geom_15.obj"/>
+    <mesh name="socket9mm_collision_geom_16" file="socket9mm_collision_geom_16.obj"/>
+    <mesh name="socket9mm_collision_geom_17" file="socket9mm_collision_geom_17.obj"/>
+    <mesh name="socket9mm_collision_geom_18" file="socket9mm_collision_geom_18.obj"/>
+    <mesh name="socket9mm_collision_geom_19" file="socket9mm_collision_geom_19.obj"/>
+    <mesh name="socket9mm_collision_geom_20" file="socket9mm_collision_geom_20.obj"/>
+    <mesh name="socket9mm_collision_geom_21" file="socket9mm_collision_geom_21.obj"/>
+    <mesh name="socket9mm_collision_geom_22" file="socket9mm_collision_geom_22.obj"/>
+    <mesh name="socket9mm_collision_geom_23" file="socket9mm_collision_geom_23.obj"/>
+    <mesh name="socket9mm_collision_geom_24" file="socket9mm_collision_geom_24.obj"/>
+    <mesh name="socket9mm_collision_geom_25" file="socket9mm_collision_geom_25.obj"/>
+    <mesh name="socket9mm_collision_geom_26" file="socket9mm_collision_geom_26.obj"/>
+    <mesh name="socket9mm_collision_geom_27" file="socket9mm_collision_geom_27.obj"/>
+    
+    <mesh name="socket10mm_collision_geom_0"  file="socket10mm_collision_geom_0.obj"/>
+    <mesh name="socket10mm_collision_geom_1"  file="socket10mm_collision_geom_1.obj"/>
+    <mesh name="socket10mm_collision_geom_2"  file="socket10mm_collision_geom_2.obj"/>
+    <mesh name="socket10mm_collision_geom_3"  file="socket10mm_collision_geom_3.obj"/>
+    <mesh name="socket10mm_collision_geom_4"  file="socket10mm_collision_geom_4.obj"/>
+    <mesh name="socket10mm_collision_geom_5"  file="socket10mm_collision_geom_5.obj"/>
+    <mesh name="socket10mm_collision_geom_6"  file="socket10mm_collision_geom_6.obj"/>
+    <mesh name="socket10mm_collision_geom_7"  file="socket10mm_collision_geom_7.obj"/>
+    <mesh name="socket10mm_collision_geom_8"  file="socket10mm_collision_geom_8.obj"/>
+    <mesh name="socket10mm_collision_geom_9"  file="socket10mm_collision_geom_9.obj"/>
+    <mesh name="socket10mm_collision_geom_10" file="socket10mm_collision_geom_10.obj"/>
+    <mesh name="socket10mm_collision_geom_11" file="socket10mm_collision_geom_11.obj"/>
+    <mesh name="socket10mm_collision_geom_12" file="socket10mm_collision_geom_12.obj"/>
+    <mesh name="socket10mm_collision_geom_13" file="socket10mm_collision_geom_13.obj"/>
+    <mesh name="socket10mm_collision_geom_14" file="socket10mm_collision_geom_14.obj"/>
+    <mesh name="socket10mm_collision_geom_15" file="socket10mm_collision_geom_15.obj"/>
+    <mesh name="socket10mm_collision_geom_16" file="socket10mm_collision_geom_16.obj"/>
+    <mesh name="socket10mm_collision_geom_17" file="socket10mm_collision_geom_17.obj"/>
+    <mesh name="socket10mm_collision_geom_18" file="socket10mm_collision_geom_18.obj"/>
+    <mesh name="socket10mm_collision_geom_19" file="socket10mm_collision_geom_19.obj"/>
+    <mesh name="socket10mm_collision_geom_20" file="socket10mm_collision_geom_20.obj"/>
+    <mesh name="socket10mm_collision_geom_21" file="socket10mm_collision_geom_21.obj"/>
+    <mesh name="socket10mm_collision_geom_22" file="socket10mm_collision_geom_22.obj"/>
+    <mesh name="socket10mm_collision_geom_23" file="socket10mm_collision_geom_23.obj"/>
+    <mesh name="socket10mm_collision_geom_24" file="socket10mm_collision_geom_24.obj"/>
+    <mesh name="socket10mm_collision_geom_25" file="socket10mm_collision_geom_25.obj"/>
+    <mesh name="socket10mm_collision_geom_26" file="socket10mm_collision_geom_26.obj"/>
+    <mesh name="socket10mm_collision_geom_27" file="socket10mm_collision_geom_27.obj"/>
+    <mesh name="socket10mm_collision_geom_28" file="socket10mm_collision_geom_28.obj"/>
+    
+    <mesh name="socket11mm_collision_geom_0"  file="socket11mm_collision_geom_0.obj"/>
+    <mesh name="socket11mm_collision_geom_1"  file="socket11mm_collision_geom_1.obj"/>
+    <mesh name="socket11mm_collision_geom_2"  file="socket11mm_collision_geom_2.obj"/>
+    <mesh name="socket11mm_collision_geom_3"  file="socket11mm_collision_geom_3.obj"/>
+    <mesh name="socket11mm_collision_geom_4"  file="socket11mm_collision_geom_4.obj"/>
+    <mesh name="socket11mm_collision_geom_5"  file="socket11mm_collision_geom_5.obj"/>
+    <mesh name="socket11mm_collision_geom_6"  file="socket11mm_collision_geom_6.obj"/>
+    <mesh name="socket11mm_collision_geom_7"  file="socket11mm_collision_geom_7.obj"/>
+    <mesh name="socket11mm_collision_geom_8"  file="socket11mm_collision_geom_8.obj"/>
+    <mesh name="socket11mm_collision_geom_9"  file="socket11mm_collision_geom_9.obj"/>
+    <mesh name="socket11mm_collision_geom_10" file="socket11mm_collision_geom_10.obj"/>
+    <mesh name="socket11mm_collision_geom_11" file="socket11mm_collision_geom_11.obj"/>
+    <mesh name="socket11mm_collision_geom_12" file="socket11mm_collision_geom_12.obj"/>
+    <mesh name="socket11mm_collision_geom_13" file="socket11mm_collision_geom_13.obj"/>
+    <mesh name="socket11mm_collision_geom_14" file="socket11mm_collision_geom_14.obj"/>
+    <mesh name="socket11mm_collision_geom_15" file="socket11mm_collision_geom_15.obj"/>
+    <mesh name="socket11mm_collision_geom_16" file="socket11mm_collision_geom_16.obj"/>
+    <mesh name="socket11mm_collision_geom_17" file="socket11mm_collision_geom_17.obj"/>
+    <mesh name="socket11mm_collision_geom_18" file="socket11mm_collision_geom_18.obj"/>
+    <mesh name="socket11mm_collision_geom_19" file="socket11mm_collision_geom_19.obj"/>
+    <mesh name="socket11mm_collision_geom_20" file="socket11mm_collision_geom_20.obj"/>
+    <mesh name="socket11mm_collision_geom_21" file="socket11mm_collision_geom_21.obj"/>
+    <mesh name="socket11mm_collision_geom_22" file="socket11mm_collision_geom_22.obj"/>
+    <mesh name="socket11mm_collision_geom_23" file="socket11mm_collision_geom_23.obj"/>
+    <mesh name="socket11mm_collision_geom_24" file="socket11mm_collision_geom_24.obj"/>
+    <mesh name="socket11mm_collision_geom_25" file="socket11mm_collision_geom_25.obj"/>
+    <mesh name="socket11mm_collision_geom_26" file="socket11mm_collision_geom_26.obj"/>
+    <mesh name="socket11mm_collision_geom_27" file="socket11mm_collision_geom_27.obj"/>
+    <mesh name="socket11mm_collision_geom_28" file="socket11mm_collision_geom_28.obj"/>
+    <mesh name="socket11mm_collision_geom_29" file="socket11mm_collision_geom_29.obj"/>
+    <mesh name="socket11mm_collision_geom_30" file="socket11mm_collision_geom_30.obj"/>
+    
+    <mesh name="wrench_collision_geom_0"  file="wrench_collision_geom_0.obj"/>
+    <mesh name="wrench_collision_geom_1"  file="wrench_collision_geom_1.obj"/>
+    <mesh name="wrench_collision_geom_2"  file="wrench_collision_geom_2.obj"/>
+    <mesh name="wrench_collision_geom_3"  file="wrench_collision_geom_3.obj"/>
+    <mesh name="wrench_collision_geom_4"  file="wrench_collision_geom_4.obj"/>
+    <mesh name="wrench_collision_geom_5"  file="wrench_collision_geom_5.obj"/>
+    <mesh name="wrench_collision_geom_6"  file="wrench_collision_geom_6.obj"/>
+    <mesh name="wrench_collision_geom_7"  file="wrench_collision_geom_7.obj"/>
+    <mesh name="wrench_collision_geom_8"  file="wrench_collision_geom_8.obj"/>
+    <mesh name="wrench_collision_geom_9"  file="wrench_collision_geom_9.obj"/>
+    <mesh name="wrench_collision_geom_10" file="wrench_collision_geom_10.obj"/>
+    <mesh name="wrench_collision_geom_11" file="wrench_collision_geom_11.obj"/>
+    <mesh name="wrench_collision_geom_12" file="wrench_collision_geom_12.obj"/>
+    <mesh name="wrench_collision_geom_13" file="wrench_collision_geom_13.obj"/>
+    <mesh name="wrench_collision_geom_14" file="wrench_collision_geom_14.obj"/>
+    
+    
+    <mesh name="tool1_collision_geom_0"  file="tool1_collision_geom_0.obj"/>
+    <mesh name="tool1_collision_geom_1"  file="tool1_collision_geom_1.obj"/>
+    <mesh name="tool1_collision_geom_2"  file="tool1_collision_geom_2.obj"/>
+    <mesh name="tool1_collision_geom_3"  file="tool1_collision_geom_3.obj"/>
+    <mesh name="tool1_collision_geom_4"  file="tool1_collision_geom_4.obj"/>
+    <mesh name="tool1_collision_geom_5"  file="tool1_collision_geom_5.obj"/>
+    <mesh name="tool1_collision_geom_6"  file="tool1_collision_geom_6.obj"/>
+    <mesh name="tool1_collision_geom_7"  file="tool1_collision_geom_7.obj"/>
+    <mesh name="tool1_collision_geom_8"  file="tool1_collision_geom_8.obj"/>
+    
+    <mesh name="tool2_collision_geom_0"  file="tool2_collision_geom_0.obj"/>
+    <mesh name="tool2_collision_geom_1"  file="tool2_collision_geom_1.obj"/>
+    <mesh name="tool2_collision_geom_2"  file="tool2_collision_geom_2.obj"/>
+    <mesh name="tool2_collision_geom_3"  file="tool2_collision_geom_3.obj"/>
+    <mesh name="tool2_collision_geom_4"  file="tool2_collision_geom_4.obj"/>
+    <mesh name="tool2_collision_geom_5"  file="tool2_collision_geom_5.obj"/>
+    <mesh name="tool2_collision_geom_6"  file="tool2_collision_geom_6.obj"/>
+    <mesh name="tool2_collision_geom_7"  file="tool2_collision_geom_7.obj"/>
+    
+    <mesh name="tool3_upper_collision_geom_0"  file="tool3_upper_collision_geom_0.obj"/>
+    <mesh name="tool3_upper_collision_geom_1"  file="tool3_upper_collision_geom_1.obj"/>
+    <mesh name="tool3_upper_collision_geom_2"  file="tool3_upper_collision_geom_2.obj"/>
+    <mesh name="tool3_upper_collision_geom_3"  file="tool3_upper_collision_geom_3.obj"/>
+    <mesh name="tool3_upper_collision_geom_4"  file="tool3_upper_collision_geom_4.obj"/>
+    <mesh name="tool3_upper_collision_geom_5"  file="tool3_upper_collision_geom_5.obj"/>
+    <mesh name="tool3_upper_collision_geom_6"  file="tool3_upper_collision_geom_6.obj"/>
+    <mesh name="tool3_upper_collision_geom_7"  file="tool3_upper_collision_geom_7.obj"/>
+    <mesh name="tool3_upper_collision_geom_8"  file="tool3_upper_collision_geom_8.obj"/>
+    <mesh name="tool3_upper_collision_geom_9"  file="tool3_upper_collision_geom_9.obj"/>
+    <mesh name="tool3_upper_collision_geom_10" file="tool3_upper_collision_geom_10.obj"/>
+    <mesh name="tool3_upper_collision_geom_11" file="tool3_upper_collision_geom_11.obj"/>
+    <mesh name="tool3_upper_collision_geom_12" file="tool3_upper_collision_geom_12.obj"/>
+    
+    <mesh name="tool3_middle_collision_geom_0"  file="tool3_middle_collision_geom_0.obj"/>
+    <mesh name="tool3_middle_collision_geom_1"  file="tool3_middle_collision_geom_1.obj"/>
+    <mesh name="tool3_middle_collision_geom_2"  file="tool3_middle_collision_geom_2.obj"/>
+    <mesh name="tool3_middle_collision_geom_3"  file="tool3_middle_collision_geom_3.obj"/>
+    <mesh name="tool3_middle_collision_geom_4"  file="tool3_middle_collision_geom_4.obj"/>
+    <mesh name="tool3_middle_collision_geom_5"  file="tool3_middle_collision_geom_5.obj"/>
+    <mesh name="tool3_middle_collision_geom_6"  file="tool3_middle_collision_geom_6.obj"/>
+    <mesh name="tool3_middle_collision_geom_7"  file="tool3_middle_collision_geom_7.obj"/>
+    <mesh name="tool3_middle_collision_geom_8"  file="tool3_middle_collision_geom_8.obj"/>
+    <mesh name="tool3_middle_collision_geom_9"  file="tool3_middle_collision_geom_9.obj"/>
+    <mesh name="tool3_middle_collision_geom_10" file="tool3_middle_collision_geom_10.obj"/>
+
+    
+    <mesh name="tool3_lower_collision_geom_0"  file="tool3_lower_collision_geom_0.obj"/>
+    <mesh name="tool3_lower_collision_geom_1"  file="tool3_lower_collision_geom_1.obj"/>
+    <mesh name="tool3_lower_collision_geom_2"  file="tool3_lower_collision_geom_2.obj"/>
+    <mesh name="tool3_lower_collision_geom_3"  file="tool3_lower_collision_geom_3.obj"/>
+    <mesh name="tool3_lower_collision_geom_4"  file="tool3_lower_collision_geom_4.obj"/>
+    <mesh name="tool3_lower_collision_geom_5"  file="tool3_lower_collision_geom_5.obj"/>
+    <mesh name="tool3_lower_collision_geom_6"  file="tool3_lower_collision_geom_6.obj"/>
+    <mesh name="tool3_lower_collision_geom_7"  file="tool3_lower_collision_geom_7.obj"/>
+    <mesh name="tool3_lower_collision_geom_8"  file="tool3_lower_collision_geom_8.obj"/>
+    <mesh name="tool3_lower_collision_geom_9"  file="tool3_lower_collision_geom_9.obj"/>
+    <mesh name="tool3_lower_collision_geom_10"  file="tool3_lower_collision_geom_10.obj"/>
+    <mesh name="tool3_lower_collision_geom_11"  file="tool3_lower_collision_geom_11.obj"/>
+    <mesh name="tool3_lower_collision_geom_12"  file="tool3_lower_collision_geom_12.obj"/>
+    <mesh name="tool3_lower_collision_geom_13"  file="tool3_lower_collision_geom_13.obj"/>
+    <mesh name="tool3_lower_collision_geom_14"  file="tool3_lower_collision_geom_14.obj"/>
+    <mesh name="tool3_lower_collision_geom_15"  file="tool3_lower_collision_geom_15.obj"/>
+    <mesh name="tool3_lower_collision_geom_16"  file="tool3_lower_collision_geom_16.obj"/>
+    <mesh name="tool3_lower_collision_geom_17"  file="tool3_lower_collision_geom_17.obj"/>
+    <mesh name="tool3_lower_collision_geom_18"  file="tool3_lower_collision_geom_18.obj"/>
+    <mesh name="tool3_lower_collision_geom_19"  file="tool3_lower_collision_geom_19.obj"/>
+    <mesh name="tool3_lower_collision_geom_20"  file="tool3_lower_collision_geom_20.obj"/>
+    <mesh name="tool3_lower_collision_geom_21"  file="tool3_lower_collision_geom_21.obj"/>
+    <mesh name="tool3_lower_collision_geom_22"  file="tool3_lower_collision_geom_22.obj"/>
+    <mesh name="tool3_lower_collision_geom_23"  file="tool3_lower_collision_geom_23.obj"/>
+    <mesh name="tool3_lower_collision_geom_24"  file="tool3_lower_collision_geom_24.obj"/>
+    <mesh name="tool3_lower_collision_geom_25"  file="tool3_lower_collision_geom_25.obj"/>
+    <mesh name="tool3_lower_collision_geom_26"  file="tool3_lower_collision_geom_26.obj"/>
+    <mesh name="tool3_lower_collision_geom_27"  file="tool3_lower_collision_geom_27.obj"/>
+    
+    <mesh name="lid_collision_geom_0"  file="lid_collision_geom_0.obj"/>
+    <mesh name="lid_collision_geom_1"  file="lid_collision_geom_1.obj"/>
+    <mesh name="lid_collision_geom_2"  file="lid_collision_geom_2.obj"/>
+    <mesh name="lid_collision_geom_3"  file="lid_collision_geom_3.obj"/>
+    <mesh name="lid_collision_geom_4"  file="lid_collision_geom_4.obj"/>
+    <mesh name="lid_collision_geom_5"  file="lid_collision_geom_5.obj"/>
+    <mesh name="lid_collision_geom_6"  file="lid_collision_geom_6.obj"/>
+    <mesh name="lid_collision_geom_7"  file="lid_collision_geom_7.obj"/>
+    <mesh name="lid_collision_geom_8"  file="lid_collision_geom_8.obj"/>
+    <mesh name="lid_collision_geom_9"  file="lid_collision_geom_9.obj"/>
+    <mesh name="lid_collision_geom_10" file="lid_collision_geom_10.obj"/>
+    <mesh name="lid_collision_geom_11" file="lid_collision_geom_11.obj"/>
+    <mesh name="lid_collision_geom_12" file="lid_collision_geom_12.obj"/>
+    <mesh name="lid_collision_geom_13" file="lid_collision_geom_13.obj"/>
+    <mesh name="lid_collision_geom_14" file="lid_collision_geom_14.obj"/>
+    <mesh name="lid_collision_geom_15" file="lid_collision_geom_15.obj"/>
+    <mesh name="lid_collision_geom_16" file="lid_collision_geom_16.obj"/>
+    <mesh name="lid_collision_geom_17" file="lid_collision_geom_17.obj"/>
+    <mesh name="lid_collision_geom_18" file="lid_collision_geom_18.obj"/>
+        <mesh name="lid_collision_geom_19" file="lid_collision_geom_19.obj"/>
+        <mesh name="lid_collision_geom_20" file="lid_collision_geom_20.obj"/>
+        <mesh name="lid_collision_geom_21" file="lid_collision_geom_21.obj"/>
+        <mesh name="lid_collision_geom_22" file="lid_collision_geom_22.obj"/>
+        <mesh name="lid_collision_geom_23" file="lid_collision_geom_23.obj"/>
+        <mesh name="lid_collision_geom_24" file="lid_collision_geom_24.obj"/>
+        <mesh name="lid_collision_geom_25" file="lid_collision_geom_25.obj"/>
+        <mesh name="lid_collision_geom_26" file="lid_collision_geom_26.obj"/>
+        <mesh name="lid_collision_geom_27" file="lid_collision_geom_27.obj"/>
+        <mesh name="lid_collision_geom_28" file="lid_collision_geom_28.obj"/>
+        <mesh name="lid_collision_geom_29" file="lid_collision_geom_29.obj"/>
+        <mesh name="lid_collision_geom_30" file="lid_collision_geom_30.obj"/>
+    
+    
+
+  </asset>
+
+  <worldbody>
+    <geom name="floor"  type="plane" size="5 5 0.01" material="gray_floor"/>
+    <body pos="0 0.2 0" quat="1 0 0 0" name="robot">      
+    <!-- Additional lights for better coverage -->
+    <light name="//unnamed_light_0" directional="true" pos="0 0 1.5" diffuse="0.3 0.3 0.3" specular="0.2 0.2 0.2" ambient="0.1 0.1 0.1"/>
+    <light name="overhead_main" directional="true" pos="0 0 2.0" diffuse="0.4 0.4 0.4" specular="0.3 0.3 0.3" ambient="0.1 0.1 0.1"/>
+    <light name="front_left" directional="false" pos="-0.8 -0.8 1.2" diffuse="0.2 0.2 0.2" specular="0.1 0.1 0.1" ambient="0.05 0.05 0.05"/>
+  
+    <body name="left/root" pos="-0.4575 -0.019 0" quat="0.7071 0 0 0.7071" gravcomp="1">
+      <geom type="mesh" rgba="0.752941 0.752941 0.752941 1" mesh="base_link" class="robot/visual"/>
+      <geom type="mesh" rgba="0.752941 0.752941 0.752941 1" mesh="base_link" class="robot/collision"/>
+      <body name="left/link_1" pos="0 0 0.05725" gravcomp="1">
+        <inertial pos="-0.00011075 0.00171176 0.0204459" quat="0.313955 0.305238 -0.643575 0.627752" mass="0.152704" diaginertia="0.000203432 0.000173907 8.3521e-05" />
+        <joint name="left/joint_0" class="joint_0"/>
+        <geom type="mesh" rgba="0.752941 0.752941 0.752941 1" mesh="link_1" class="robot/visual"/>
+        <geom type="mesh" rgba="0.752941 0.752941 0.752941 1" mesh="link_1" class="robot/collision"/>
+        <body name="left/link_2" pos="0.02 0 0.04625" gravcomp="1">
+
+          <inertial pos="-0.131215 -0.00292583 0.00021345" quat="-0.00123582 0.706546 -0.00109575 0.707665" mass="1.15316" diaginertia="0.0179449 0.0173612 0.00102628" />
+          <joint name="left/joint_1" class="joint_1"/>
+          <geom type="mesh" rgba="0.752941 0.752941 0.752941 1" mesh="link_2" class="robot/visual"/>
+          <geom type="mesh" rgba="0.752941 0.752941 0.752941 1" mesh="link_2" class="robot/collision"/>
+
+          <body name="left/link_3" pos="-0.264 0 0" gravcomp="1">
+            <inertial pos="0.180836 -0.0009409 0.0555494" quat="0.0103901 0.669684 -0.0033175 0.742566" mass="0.686666" diaginertia="0.00566898 0.00547578 0.00059316"/>
+            <joint name="left/joint_2" class="joint_2"/>
+            <geom type="mesh" rgba="0.752941 0.752941 0.752941 1" mesh="link_3" class="robot/visual"/>
+            <geom type="mesh" rgba="0.752941 0.752941 0.752941 1" mesh="link_3" class="robot/collision"/>
+            
+            <body name="left/link_4" pos="0.245 0 0.06" gravcomp="1">
+              <inertial pos="0.0579784 0.00027145 0.0588445" quat="0.948688 0.0346237 0.307828 0.0635164" mass="0.457899" diaginertia="0.000670827 0.000661455 0.000288648"/>
+
+
+              <joint name="left/joint_3" class="joint_3" />
+              <geom type="mesh" rgba="0.752941 0.752941 0.752941 1" mesh="link_4" class="robot/visual"/>
+              <geom type="mesh" rgba="0.752941 0.752941 0.752941 1" mesh="link_4" class="robot/collision"/>
+              <body name="left/link_5" pos="0.06775 0 0.0455" gravcomp="1">
+                <inertial pos="0.00412447 -1.138e-05 -0.0428318" quat="0.496144 0.502128 0.503595 0.498098" mass="0.366939" diaginertia="0.000320622 0.00026751 0.000189108" />
+
+                <joint name="left/joint_4" class="joint_4"/>
+                <geom type="mesh" rgba="0.752941 0.752941 0.752941 1" mesh="link_5" class="robot/visual"/>
+                <geom type="mesh" rgba="0.752941 0.752941 0.752941 1" mesh="link_5" class="robot/collision"/>
+                <body name="left/link_6" pos="0.02895 0 -0.0455" gravcomp="1">
+                  <camera name="cam_left_wrist" pos="0.06231 0.00000 0.05321" euler="-1.57 -1.22 0.0"  resolution="1920 1080" focal="1.93e-3 1.93e-3" sensorsize="0.0037 0.0021" mode="fixed"/>
+                  <inertial pos="0.0470282 0.00141143 0.00922376" quat="0.274972 0.289957 -0.694213 0.598652" mass="0.673874" diaginertia="0.00139668 0.00131951 0.00100756"/>
+                  <joint name="left/joint_5" class="joint_5" />
+                  <geom type="mesh" rgba="0.752941 0.752941 0.752941 1" mesh="link_6" class="robot/visual"/>
+                  <geom type="mesh" rgba="0.752941 0.752941 0.752941 1" mesh="link_6" class="robot/collision"/>
+
+              <body name="left/camera_mount" pos="0 0 0">
+                <geom type="mesh" mesh="camera_mount_d405" class="robot/visual"/>
+                <geom type="mesh" mesh="camera_mount_d405" class="robot/collision"/>
+
+                <!-- Add D405 camera as a child body inside the mount -->
+                <body name="left/d405_camera" pos="0 0 0"  >
+                <geom type="mesh" mesh="d405_solid" class="robot/visual"/>
+                  <geom type="mesh" mesh="d405_solid" class="robot/collision"/>
+                </body>
+              </body>
+
+              <!-- grippers -->
+              <body name="left/carriage_right" pos="0.0865 -0.023 0" gravcomp="1">
+                <inertial pos="0.00169015 0.00592793 0.00201817" quat="-0.370973 0.740886 -0.0847721 0.553427" mass="0.081271" diaginertia="4.29565e-05 3.87081e-05 2.21528e-05" />
+                <joint name="left/right_carriage_joint" pos="0 0 0" axis="0 -1 0" type="slide" range="0 0.044" actuatorfrcrange="-400 400" actuatorgravcomp="true" stiffness="50" />
+                <geom type="mesh" mesh="carriage_right" class="robot/visual"/>
+                <geom type="mesh" mesh="carriage_right" class="robot/collision"/>
+                
+                <body name="left/gripper_right" pos="0 0 0" quat="1 0 0 0">
+                  <geom type="mesh" mesh="gripper_right" class="robot/visual"/>
+                  <geom type="mesh" mesh="gr_right_c0" class="robot/collision" />
+                  <geom type="mesh" mesh="gr_right_c1" class="robot/collision" />
+                  <geom type="mesh" mesh="gr_right_c2" class="robot/collision" />
+                  <geom type="mesh" mesh="gr_right_c3" class="robot/collision" />
+                  <!-- mocap attachment points (uncomment geoms for visualization) -->
+                  <body name="left/gripper_right_finger_base" pos="0 0 0" >
+                    <!-- <geom type="sphere" size="0.008" rgba="1 0 0 1"/> -->
+                  </body>
+                  <body name="left/gripper_right_finger_tip" pos="0.04 0.013 0">
+                    <!-- <geom type="sphere" size="0.008" rgba="0 1 1 1"/> -->
+                  </body>
+                  <!-- end of mocap attachment points -->
+                </body>
+              </body>
+
+              <body name="left/carriage_left" pos="0.0865 0.023 0" gravcomp="1">
+                <inertial pos="0.00169017 -0.00592796 -0.00365701" quat="-0.0382691 0.628022 -0.255101 0.734198" mass="0.081271" diaginertia="4.21112e-05 3.61943e-05 2.40003e-05" />
+                <joint name="left/left_carriage_joint" pos="0 0 0" axis="0 1 0" type="slide" range="0 0.044" actuatorfrcrange="-400 400" actuatorgravcomp="true" stiffness="50" />
+                <geom type="mesh" mesh="carriage_left" class="robot/visual"/>
+                <geom type="mesh" mesh="carriage_left" class="robot/collision"/>
+                
+                <body name="left/gripper_left" pos="0 0 0" quat="1 0 0 0">
+                  <geom type="mesh" mesh="gripper_left" class="robot/visual"/>
+                  <geom type="mesh" mesh="gr_left_c0" class="robot/collision" />
+                  <geom type="mesh" mesh="gr_left_c1" class="robot/collision" />
+                  <geom type="mesh" mesh="gr_left_c2" class="robot/collision" />
+                  <geom type="mesh" mesh="gr_left_c3" class="robot/collision" />
+                  <!-- mocap attachment points -->
+                    <body name="left/gripper_left_finger_base" pos="0 0 0" >
+                    <!-- <geom type="sphere" size="0.008" rgba="1 0 0 1"/> -->
+                  </body>
+                  <body name="left/gripper_left_finger_tip" pos="0.04 -0.013 0" >
+                    <!-- <geom type="sphere" size="0.008" rgba="0 1 1 1"/> -->
+                  </body>
+                  <!-- end of mocap attachment points -->
+                </body>
+              </body>
+                </body>
+              </body>
+            </body>
+          </body>
+        </body>
+      </body>
+    </body>
+    <body name="right/root" pos="0.4575 -0.019 0" quat="0.7071 0 0 0.7071" gravcomp="1">
+      <geom type="mesh" rgba="0.752941 0.752941 0.752941 1" mesh="base_link" class="robot/visual"/>
+      <geom type="mesh" rgba="0.752941 0.752941 0.752941 1" mesh="base_link" class="robot/collision"/>
+      <body name="right/link_1" pos="0 0 0.05725" gravcomp="1">
+        <inertial pos="-0.00011075 0.00171176 0.0204459" quat="0.313955 0.305238 -0.643575 0.627752" mass="0.152704" diaginertia="0.000203432 0.000173907 8.3521e-05" />
+        <joint name="right/joint_0" class="joint_0"/>
+        <geom type="mesh" rgba="0.752941 0.752941 0.752941 1" mesh="link_1" class="robot/visual"/>
+        <geom type="mesh" rgba="0.752941 0.752941 0.752941 1" mesh="link_1" class="robot/collision"/>
+        <body name="right/link_2" pos="0.02 0 0.04625" gravcomp="1">
+          <inertial pos="-0.131215 -0.00292583 0.00021345" quat="-0.00123582 0.706546 -0.00109575 0.707665" mass="1.15316" diaginertia="0.0179449 0.0173612 0.00102628" />
+          <joint name="right/joint_1" class="joint_1"/>
+          <geom type="mesh" rgba="0.752941 0.752941 0.752941 1" mesh="link_2" class="robot/visual"/>
+          <geom type="mesh" rgba="0.752941 0.752941 0.752941 1" mesh="link_2" class="robot/collision"/>
+          <body name="right/link_3" pos="-0.264 0 0" gravcomp="1">
+            <inertial pos="0.180836 -0.0009409 0.0555494" quat="0.0103901 0.669684 -0.0033175 0.742566" mass="0.686666" diaginertia="0.00566898 0.00547578 0.00059316"/>
+            <joint name="right/joint_2" class="joint_2"/>
+            <geom type="mesh" rgba="0.752941 0.752941 0.752941 1" mesh="link_3" class="robot/visual"/>
+            <geom type="mesh" rgba="0.752941 0.752941 0.752941 1" mesh="link_3" class="robot/collision"/>
+            <body name="right/link_4" pos="0.245 0 0.06" gravcomp="1">
+              <inertial pos="0.0579784 0.00027145 0.0588445" quat="0.948688 0.0346237 0.307828 0.0635164" mass="0.457899" diaginertia="0.000670827 0.000661455 0.000288648"/>
+              <joint name="right/joint_3" class="joint_3"/>
+              <geom type="mesh" rgba="0.752941 0.752941 0.752941 1" mesh="link_4" class="robot/visual"/>
+              <geom type="mesh" rgba="0.752941 0.752941 0.752941 1" mesh="link_4" class="robot/collision"/>
+              <body name="right/link_5" pos="0.06775 0 0.0455" gravcomp="1">
+                <inertial pos="0.00412447 -1.138e-05 -0.0428318" quat="0.496144 0.502128 0.503595 0.498098" mass="0.366939" diaginertia="0.000320622 0.00026751 0.000189108" />
+                <joint name="right/joint_4" class="joint_4"/>
+                <geom type="mesh" rgba="0.752941 0.752941 0.752941 1" mesh="link_5" class="robot/visual"/>
+                <geom type="mesh" rgba="0.752941 0.752941 0.752941 1" mesh="link_5" class="robot/collision"/>
+                <body name="right/link_6" pos="0.02895 0 -0.0455" gravcomp="1">
+                  <camera name="cam_right_wrist" pos="0.06231 0.00000 0.05321" euler="-1.57 -1.22 0.0"  resolution="1920 1080" focal="1.93e-3 1.93e-3" sensorsize="0.0037 0.0021" mode="fixed"/>
+                  <inertial pos="0.0470282 0.00141143 0.00922376" quat="0.274972 0.289957 -0.694213 0.598652" mass="0.673874" diaginertia="0.00139668 0.00131951 0.00100756"/>
+                  <joint name="right/joint_5" class="joint_5"/>
+                  <geom type="mesh" rgba="0.752941 0.752941 0.752941 1" mesh="link_6" class="robot/visual"/>
+                  <geom type="mesh" rgba="0.752941 0.752941 0.752941 1" mesh="link_6" class="robot/collision"/>
+
+                  <body name="right/camera_mount" pos="0 0 0">
+                    <geom type="mesh" mesh="camera_mount_d405" class="robot/visual"/>
+                    <geom type="mesh" mesh="camera_mount_d405" class="robot/collision"/>
+
+                <!-- Add D405 camera as a child body inside the mount -->
+                <body name="right/d405_camera" pos="0 0 0"  >
+                <geom type="mesh" mesh="d405_solid" class="robot/visual"/>
+                  <geom type="mesh" mesh="d405_solid" class="robot/collision"/>
+                </body>
+                </body>
+
+              <!--right grippers-->
+             <body name="right/carriage_right" pos="0.0865 -0.023 0" gravcomp="1">
+              <inertial pos="0.00169015 0.00592793 0.00201817" quat="-0.370973 0.740886 -0.0847721 0.553427" mass="0.081271" diaginertia="4.29565e-05 3.87081e-05 2.21528e-05" />
+              <joint name="right/right_carriage_joint" pos="0 0 0" axis="0 -1 0" type="slide" range="0 0.044" actuatorfrcrange="-400 400" actuatorgravcomp="true" stiffness="50" />
+              <geom type="mesh" mesh="carriage_right" class="robot/visual"/>
+              <geom type="mesh" mesh="carriage_right" class="robot/collision"/>
+
+              <body name="right/gripper_right" pos="0 0 0" quat="1 0 0 0">
+                <geom type="mesh" mesh="gripper_right" class="robot/visual"/>
+                  <geom type="mesh" mesh="gr_right_c0" class="robot/collision" />
+                  <geom type="mesh" mesh="gr_right_c1" class="robot/collision" />
+                  <geom type="mesh" mesh="gr_right_c2" class="robot/collision" />
+                  <geom type="mesh" mesh="gr_right_c3" class="robot/collision" />
+
+                <!-- mocap attachment points (uncommend geoms for robot/visualization) -->
+                <body name="right/gripper_right_finger_base" pos="0 0 0" >
+                  <!-- <geom type="sphere" size="0.008" rgba="0 1 1 1"/> -->
+                </body>
+                <body name="right/gripper_right_finger_tip" pos="0.04 0.013 0">
+                  <!-- <geom type="sphere" size="0.008" rgba="0 1 1 1"/> -->
+                </body>
+                <!-- end of mocap attachment points-->
+              </body>
+            </body>
+
+            <body name="right/carriage_left" pos="0.0865 0.023 0" gravcomp="1">
+              <inertial pos="0.00169017 -0.00592796 -0.00365701" quat="-0.0382691 0.628022 -0.255101 0.734198" mass="0.081271" diaginertia="4.21112e-05 3.61943e-05 2.40003e-05" />
+              <joint name="right/left_carriage_joint" pos="0 0 0" axis="0 1 0" type="slide" range="0 0.044" actuatorfrcrange="-400 400" actuatorgravcomp="true" stiffness="50" />
+              <geom type="mesh" mesh="carriage_left" class="robot/visual"/>
+              <geom type="mesh" mesh="carriage_left" class="robot/collision"/>
+              <body name="right/gripper_left" pos="0 0 0" quat="1 0 0 0">
+                <geom type="mesh" mesh="gripper_left" class="robot/visual"/>
+                  <geom type="mesh" mesh="gr_left_c0" class="robot/collision" />
+                  <geom type="mesh" mesh="gr_left_c1" class="robot/collision" />
+                  <geom type="mesh" mesh="gr_left_c2" class="robot/collision" />
+                  <geom type="mesh" mesh="gr_left_c3" class="robot/collision" />
+                <!-- mocap attachment points (uncommend geoms for visualization) -->
+                <body name="right/gripper_left_finger_base" pos="0 0 0" >
+                  <!-- <geom type="sphere" size="0.008" rgba="1 0 0 1"/> -->
+                </body>
+                <body name="right/gripper_left_finger_tip" pos="0.04 -0.013 0">
+                  <!-- <geom type="sphere" size="0.008" rgba="1 0 0 1"/> -->
+                </body>
+                <!-- end of mocap attachment points -->
+                </body>
+                </body>
+                </body>
+              </body>
+            </body>
+          </body>
+        </body>
+      </body>
+    </body>
+    </body>
+
+        <!--mocaps for left gripper-->
+
+        <body name="left_gripper_right_finger_base" mocap="true"/>
+        <body name="left_gripper_right_finger_tip" mocap="true"/>
+
+        <body name="left_gripper_left_finger_base" mocap="true"/>
+        <body name="left_gripper_left_finger_tip" mocap="true"/>
+        
+        <!--mocaps for right gripper-->
+        <body name="right_gripper_left_finger_base" mocap="true"/>
+        <body name="right_gripper_left_finger_tip" mocap="true"/>
+        <body name="right_gripper_right_finger_base" mocap="true"/>
+        <body name="right_gripper_right_finger_tip" mocap="true"/>
+    
+
+    
+    <body pos="0 0 0">
+        <!-- <joint type="free" class="free_joints"/>-->
+        <freejoint/>
+
+    <body name="bottom" pos="0 0.4 0" euler = "0 0 90">
+      <geom name="bottom" mesh="bottom"
+            class="toolbox" />
+            
+            <geom name="fixed_holes_collision_geom_0"  class="collision" mesh="fixed_holes_collision_geom_0"/>
+            <geom name="fixed_holes_collision_geom_1"  class="collision" mesh="fixed_holes_collision_geom_1"/>
+            <geom name="fixed_holes_collision_geom_3"  class="collision" mesh="fixed_holes_collision_geom_3"/>
+            <geom name="fixed_holes_collision_geom_4"  class="collision" mesh="fixed_holes_collision_geom_4"/>
+            <geom name="fixed_holes_collision_geom_5"  class="collision" mesh="fixed_holes_collision_geom_5"/>
+            <geom name="fixed_holes_collision_geom_7"  class="collision" mesh="fixed_holes_collision_geom_7"/>
+            <geom name="fixed_holes_collision_geom_8"  class="collision" mesh="fixed_holes_collision_geom_8"/>
+            <geom name="fixed_holes_collision_geom_9"  class="collision" mesh="fixed_holes_collision_geom_9"/>
+            <geom name="fixed_holes_collision_geom_10" class="collision" mesh="fixed_holes_collision_geom_10"/>
+            <geom name="fixed_holes_collision_geom_11" class="collision" mesh="fixed_holes_collision_geom_11"/>
+            <geom name="fixed_holes_collision_geom_12" class="collision" mesh="fixed_holes_collision_geom_12"/>
+            <geom name="fixed_holes_collision_geom_13" class="collision" mesh="fixed_holes_collision_geom_13"/>
+            <geom name="fixed_holes_collision_geom_14" class="collision" mesh="fixed_holes_collision_geom_14"/>
+            <geom name="fixed_holes_collision_geom_15" class="collision" mesh="fixed_holes_collision_geom_15"/>
+            <geom name="fixed_holes_collision_geom_16" class="collision" mesh="fixed_holes_collision_geom_16"/>
+            <geom name="fixed_holes_collision_geom_17" class="collision" mesh="fixed_holes_collision_geom_17"/>
+            <geom name="fixed_holes_collision_geom_18" class="collision" mesh="fixed_holes_collision_geom_18"/>
+            <geom name="fixed_holes_collision_geom_20" class="collision" mesh="fixed_holes_collision_geom_20"/>
+            <geom name="fixed_holes_collision_geom_21" class="collision" mesh="fixed_holes_collision_geom_21"/>
+            <geom name="fixed_holes_collision_geom_22" class="collision" mesh="fixed_holes_collision_geom_22"/>
+            <geom name="fixed_holes_collision_geom_23" class="collision" mesh="fixed_holes_collision_geom_23"/>
+            <geom name="fixed_holes_collision_geom_24" class="collision" mesh="fixed_holes_collision_geom_24"/>
+            <geom name="fixed_holes_collision_geom_25" class="collision" mesh="fixed_holes_collision_geom_25"/>
+            <geom name="fixed_holes_collision_geom_26" class="collision" mesh="fixed_holes_collision_geom_26"/>
+            <geom name="fixed_holes_collision_geom_27" class="collision" mesh="fixed_holes_collision_geom_27"/>
+            <geom name="fixed_holes_collision_geom_28" class="collision" mesh="fixed_holes_collision_geom_28"/>
+            <geom name="fixed_holes_collision_geom_29" class="collision" mesh="fixed_holes_collision_geom_29"/>
+            <geom name="fixed_holes_collision_geom_30" class="collision" mesh="fixed_holes_collision_geom_30"/>
+            <geom name="fixed_holes_collision_geom_31" class="collision" mesh="fixed_holes_collision_geom_31"/>
+            <geom name="fixed_holes_collision_geom_32" class="collision" mesh="fixed_holes_collision_geom_32"/>
+            <geom name="fixed_holes_collision_geom_33" class="collision" mesh="fixed_holes_collision_geom_33"/>
+            <geom name="fixed_holes_collision_geom_34" class="collision" mesh="fixed_holes_collision_geom_34"/>
+            <geom name="fixed_holes_collision_geom_35" class="collision" mesh="fixed_holes_collision_geom_35"/>
+            <geom name="fixed_holes_collision_geom_36" class="collision" mesh="fixed_holes_collision_geom_36"/>
+            <geom name="fixed_holes_collision_geom_37" class="collision" mesh="fixed_holes_collision_geom_37"/>
+            <geom name="fixed_holes_collision_geom_38" class="collision" mesh="fixed_holes_collision_geom_38"/>
+            <geom name="fixed_holes_collision_geom_39" class="collision" mesh="fixed_holes_collision_geom_39"/>
+            <geom name="fixed_holes_collision_geom_40" class="collision" mesh="fixed_holes_collision_geom_40"/>
+            <geom name="fixed_holes_collision_geom_41" class="collision" mesh="fixed_holes_collision_geom_41"/>
+            <geom name="fixed_holes_collision_geom_42" class="collision" mesh="fixed_holes_collision_geom_42"/>
+            <geom name="fixed_holes_collision_geom_43" class="collision" mesh="fixed_holes_collision_geom_43"/>
+            <geom name="fixed_holes_collision_geom_45" class="collision" mesh="fixed_holes_collision_geom_45"/>
+            <geom name="fixed_holes_collision_geom_46" class="collision" mesh="fixed_holes_collision_geom_46"/>
+            <geom name="fixed_holes_collision_geom_47" class="collision" mesh="fixed_holes_collision_geom_47"/>
+            <geom name="fixed_holes_collision_geom_48" class="collision" mesh="fixed_holes_collision_geom_48"/>
+            <geom name="fixed_holes_collision_geom_49" class="collision" mesh="fixed_holes_collision_geom_49"/>
+            <geom name="fixed_holes_collision_geom_50" class="collision" mesh="fixed_holes_collision_geom_50"/>
+            <geom name="fixed_holes_collision_geom_51" class="collision" mesh="fixed_holes_collision_geom_51"/>
+            <geom name="fixed_holes_collision_geom_52" class="collision" mesh="fixed_holes_collision_geom_52"/>
+            <geom name="fixed_holes_collision_geom_53" class="collision" mesh="fixed_holes_collision_geom_53"/>
+            <geom name="fixed_holes_collision_geom_54" class="collision" mesh="fixed_holes_collision_geom_54"/>
+
+            <geom name="fixed_holes_collision_geom_56" class="collision" mesh="fixed_holes_collision_geom_56"/>
+            <geom name="fixed_holes_collision_geom_57" class="collision" mesh="fixed_holes_collision_geom_57"/>
+            <geom name="fixed_holes_collision_geom_58" class="collision" mesh="fixed_holes_collision_geom_58"/>
+            <geom name="fixed_holes_collision_geom_59" class="collision" mesh="fixed_holes_collision_geom_59"/>
+            <geom name="fixed_holes_collision_geom_60" class="collision" mesh="fixed_holes_collision_geom_60"/>
+            <geom name="fixed_holes_collision_geom_61" class="collision" mesh="fixed_holes_collision_geom_61"/>
+            <geom name="fixed_holes_collision_geom_62" class="collision" mesh="fixed_holes_collision_geom_62"/>
+            <geom name="fixed_holes_collision_geom_63" class="collision" mesh="fixed_holes_collision_geom_63"/>
+            <geom name="fixed_holes_collision_geom_65" class="collision" mesh="fixed_holes_collision_geom_65"/>
+            <geom name="fixed_holes_collision_geom_66" class="collision" mesh="fixed_holes_collision_geom_66"/>
+            <geom name="fixed_holes_collision_geom_67" class="collision" mesh="fixed_holes_collision_geom_67"/>
+            <geom name="fixed_holes_collision_geom_68" class="collision" mesh="fixed_holes_collision_geom_68"/>
+            <geom name="fixed_holes_collision_geom_69" class="collision" mesh="fixed_holes_collision_geom_69"/>
+            <geom name="fixed_holes_collision_geom_70" class="collision" mesh="fixed_holes_collision_geom_70"/>
+            <geom name="fixed_holes_collision_geom_71" class="collision" mesh="fixed_holes_collision_geom_71"/>
+
+            <geom name="fixed_holes_collision_geom_73" class="collision" mesh="fixed_holes_collision_geom_73"/>
+            <geom name="fixed_holes_collision_geom_74" class="collision" mesh="fixed_holes_collision_geom_74"/>
+            <geom name="fixed_holes_collision_geom_75" class="collision" mesh="fixed_holes_collision_geom_75"/>
+            <geom name="fixed_holes_collision_geom_76" class="collision" mesh="fixed_holes_collision_geom_76"/>
+            <geom name="fixed_holes_collision_geom_77" class="collision" mesh="fixed_holes_collision_geom_77"/>
+            <geom name="fixed_holes_collision_geom_78" class="collision" mesh="fixed_holes_collision_geom_78"/>
+            <geom name="fixed_holes_collision_geom_79" class="collision" mesh="fixed_holes_collision_geom_79"/>
+            <geom name="fixed_holes_collision_geom_81" class="collision" mesh="fixed_holes_collision_geom_81"/>
+            <geom name="fixed_holes_collision_geom_82" class="collision" mesh="fixed_holes_collision_geom_82"/>
+            <geom name="fixed_holes_collision_geom_83" class="collision" mesh="fixed_holes_collision_geom_83"/>
+            <geom name="fixed_holes_collision_geom_84" class="collision" mesh="fixed_holes_collision_geom_84"/>
+            <geom name="fixed_holes_collision_geom_85" class="collision" mesh="fixed_holes_collision_geom_85"/>
+            <geom name="fixed_holes_collision_geom_86" class="collision" mesh="fixed_holes_collision_geom_86"/>
+            <geom name="fixed_holes_collision_geom_87" class="collision" mesh="fixed_holes_collision_geom_87"/>
+            <geom name="fixed_holes_collision_geom_88" class="collision" mesh="fixed_holes_collision_geom_88"/>
+            <geom name="fixed_holes_collision_geom_89" class="collision" mesh="fixed_holes_collision_geom_89"/>
+
+            <geom name="fixed_holes_collision_geom_91" class="collision" mesh="fixed_holes_collision_geom_91"/>
+            <geom name="fixed_holes_collision_geom_92" class="collision" mesh="fixed_holes_collision_geom_92"/>
+            <geom name="fixed_holes_collision_geom_93" class="collision" mesh="fixed_holes_collision_geom_93"/>
+            <geom name="fixed_holes_collision_geom_94" class="collision" mesh="fixed_holes_collision_geom_94"/>
+            <geom name="fixed_holes_collision_geom_95" class="collision" mesh="fixed_holes_collision_geom_95"/>
+            <geom name="fixed_holes_collision_geom_96" class="collision" mesh="fixed_holes_collision_geom_96"/>
+            <geom name="fixed_holes_collision_geom_97" class="collision" mesh="fixed_holes_collision_geom_97"/>
+            <geom name="fixed_holes_collision_geom_98" class="collision" mesh="fixed_holes_collision_geom_98"/>
+            <geom name="fixed_holes_collision_geom_99" class="collision" mesh="fixed_holes_collision_geom_99"/>
+            <geom name="fixed_holes_collision_geom_100" class="collision" mesh="fixed_holes_collision_geom_100"/>
+            <geom name="fixed_holes_collision_geom_101" class="collision" mesh="fixed_holes_collision_geom_101"/>
+            <geom name="fixed_holes_collision_geom_104" class="collision" mesh="fixed_holes_collision_geom_104"/>
+            <geom name="fixed_holes_collision_geom_105" class="collision" mesh="fixed_holes_collision_geom_105"/>
+            <geom name="fixed_holes_collision_geom_106" class="collision" mesh="fixed_holes_collision_geom_106"/>
+            <geom name="fixed_holes_collision_geom_107" class="collision" mesh="fixed_holes_collision_geom_107"/>
+            <geom name="fixed_holes_collision_geom_108" class="collision" mesh="fixed_holes_collision_geom_108"/>
+            <geom name="fixed_holes_collision_geom_109" class="collision" mesh="fixed_holes_collision_geom_109"/>
+            <geom name="fixed_holes_collision_geom_112" class="collision" mesh="fixed_holes_collision_geom_112"/>
+            <geom name="fixed_holes_collision_geom_113" class="collision" mesh="fixed_holes_collision_geom_113"/>
+            <geom name="fixed_holes_collision_geom_116" class="collision" mesh="fixed_holes_collision_geom_116"/>
+            <geom name="fixed_holes_collision_geom_117" class="collision" mesh="fixed_holes_collision_geom_117"/>
+            <geom name="fixed_holes_collision_geom_118" class="collision" mesh="fixed_holes_collision_geom_118"/>
+            <geom name="fixed_holes_collision_geom_119" class="collision" mesh="fixed_holes_collision_geom_119"/>
+            <geom name="fixed_holes_collision_geom_120" class="collision" mesh="fixed_holes_collision_geom_120"/>
+            <geom name="fixed_holes_collision_geom_121" class="collision" mesh="fixed_holes_collision_geom_121"/>
+            <geom name="fixed_holes_collision_geom_122" class="collision" mesh="fixed_holes_collision_geom_122"/>
+            <geom name="fixed_holes_collision_geom_123" class="collision" mesh="fixed_holes_collision_geom_123"/>
+            <geom name="fixed_holes_collision_geom_124" class="collision" mesh="fixed_holes_collision_geom_124"/>
+            <geom name="fixed_holes_collision_geom_125" class="collision" mesh="fixed_holes_collision_geom_125"/>
+            <geom name="fixed_holes_collision_geom_127" class="collision" mesh="fixed_holes_collision_geom_127"/>
+            <geom name="fixed_holes_collision_geom_129" class="collision" mesh="fixed_holes_collision_geom_129"/>
+            <geom name="fixed_holes_collision_geom_131" class="collision" mesh="fixed_holes_collision_geom_131"/>
+            <geom name="fixed_holes_collision_geom_132" class="collision" mesh="fixed_holes_collision_geom_132"/>
+            <geom name="fixed_holes_collision_geom_149" class="collision" mesh="fixed_holes_collision_geom_149"/>
+            <geom name="fixed_holes_collision_geom_150" class="collision" mesh="fixed_holes_collision_geom_150"/>
+            <geom name="fixed_holes_collision_geom_153" class="collision" mesh="fixed_holes_collision_geom_153"/>
+            <geom name="fixed_holes_collision_geom_154" class="collision" mesh="fixed_holes_collision_geom_154"/>
+            <geom name="fixed_holes_collision_geom_159" class="collision" mesh="fixed_holes_collision_geom_159"/>
+            <geom name="fixed_holes_collision_geom_161" class="collision" mesh="fixed_holes_collision_geom_161"/>
+            <geom name="fixed_holes_collision_geom_165" class="collision" mesh="fixed_holes_collision_geom_165"/>
+
+
+      <body name="lid" pos="0.136 0.00007 -0.0040" euler="0 -2.3562 0">
+        
+        
+           <joint name="lid_hinge"
+                   type="hinge"
+                   pos="0.069 0 0.02632519"
+                   axis="0 1 0"
+                   range="0 2.2"
+                   armature="0.008"
+                   damping="1"/>
+           <!-- <inertial pos="0.111 0.000 0.051" mass="0.373602" diaginertia="6.022834e-04 2.636396e-03 3.208933e-03" /> -->
+           <geom name="lid" mesh="lid"
+              class="toolbox"
+            />
+            <geom name="lid_collision_geom_0"  class="collision" mesh="lid_collision_geom_0"/>
+            <geom name="lid_collision_geom_1"  class="collision" mesh="lid_collision_geom_1"/>
+            <geom name="lid_collision_geom_2"  class="collision" mesh="lid_collision_geom_2"/>
+            <geom name="lid_collision_geom_3"  class="collision" mesh="lid_collision_geom_3"/>
+            <geom name="lid_collision_geom_4"  class="collision" mesh="lid_collision_geom_4"/>
+            <geom name="lid_collision_geom_5"  class="collision" mesh="lid_collision_geom_5"/>
+            <geom name="lid_collision_geom_6"  class="collision" mesh="lid_collision_geom_6"/>
+            <geom name="lid_collision_geom_7"  class="collision" mesh="lid_collision_geom_7"/>
+            <geom name="lid_collision_geom_8"  class="collision" mesh="lid_collision_geom_8"/>
+            <geom name="lid_collision_geom_9"  class="collision" mesh="lid_collision_geom_9"/>
+            <geom name="lid_collision_geom_10" class="collision" mesh="lid_collision_geom_10"/>
+            <geom name="lid_collision_geom_11" class="collision" mesh="lid_collision_geom_11"/>
+            <geom name="lid_collision_geom_12" class="collision" mesh="lid_collision_geom_12"/>
+            <geom name="lid_collision_geom_13" class="collision" mesh="lid_collision_geom_13"/>
+            <geom name="lid_collision_geom_14" class="collision" mesh="lid_collision_geom_14"/>
+            <geom name="lid_collision_geom_15" class="collision" mesh="lid_collision_geom_15"/>
+            <geom name="lid_collision_geom_16" class="collision" mesh="lid_collision_geom_16"/>
+            <geom name="lid_collision_geom_17" class="collision" mesh="lid_collision_geom_17"/>
+            <geom name="lid_collision_geom_18" class="collision" mesh="lid_collision_geom_18"/>
+            <geom name="lid_collision_geom_19" class="collision" mesh="lid_collision_geom_19"/>
+            <geom name="lid_collision_geom_20" class="collision" mesh="lid_collision_geom_20"/>
+            <geom name="lid_collision_geom_21" class="collision" mesh="lid_collision_geom_21"/>
+            <geom name="lid_collision_geom_22" class="collision" mesh="lid_collision_geom_22"/>
+            <geom name="lid_collision_geom_23" class="collision" mesh="lid_collision_geom_23"/>
+            <geom name="lid_collision_geom_24" class="collision" mesh="lid_collision_geom_24"/>
+            <geom name="lid_collision_geom_25" class="collision" mesh="lid_collision_geom_25"/>
+            <geom name="lid_collision_geom_26" class="collision" mesh="lid_collision_geom_26"/>
+            <geom name="lid_collision_geom_27" class="collision" mesh="lid_collision_geom_27"/>
+            <geom name="lid_collision_geom_28" class="collision" mesh="lid_collision_geom_28"/>
+            <geom name="lid_collision_geom_29" class="collision" mesh="lid_collision_geom_29"/>
+            <geom name="lid_collision_geom_30" class="collision" mesh="lid_collision_geom_30"/>
+
+      </body>
+    </body>
+    </body>
+    
+    <!-- sockets - random positions -->
+    
+    <!-- <body name="socket17mm" pos="-0.6 0.4 0.1">
+        <freejoint/>
+        <inertial pos="0.103 0.020 -0.036" mass="0.067262" diaginertia="5.843876e-06 9.329512e-06 9.329618e-06" />
+        <geom name="socket17mm" mesh="socket17mm" class="general" rgba="0.75 0.75 0.75 1"/>
+    </body>
+    <body name="socket16mm" pos="-0.4 0.3 0.1">
+        <freejoint/>
+        <inertial pos="0.082 0.020 -0.038" mass="0.073245" diaginertia="6.635428e-06 1.074637e-05 1.074660e-05" />
+        <geom name="socket16mm" mesh="socket16mm" class="general" rgba="0.75 0.75 0.75 1"/>
+    </body>
+    
+    <body name="socket15mm" pos="0.3 0.4 0.1">
+        <freejoint/>
+        <inertial pos="0.055 0.020 -0.036" mass="0.055585" diaginertia="4.208407e-06 7.475038e-06 7.475105e-06" />
+        <geom name="socket15mm" mesh="socket15mm" class="general" rgba="0.75 0.75 0.75 1"/>
+    </body>
+    
+    <body name="socket14mm" pos="-0.25 0.5 0.1">
+        <freejoint/>
+        <inertial pos="0.031 0.021 -0.036" mass="0.058451" diaginertia="4.220088e-06 7.794822e-06 7.794925e-06" />
+        <geom name="socket14mm" mesh="socket14mm" class="general" rgba="0.75 0.75 0.75 1"/>
+    </body>
+    
+    <body name="socket13mm" pos="-0.4 0.3 0.1">
+        <freejoint/>
+        <inertial pos="0.008 0.019 -0.036" mass="0.051138" diaginertia="3.641331e-06 6.817705e-06 6.817811e-06" />
+        <geom name="socket13mm" mesh="socket13mm" class="general" rgba="0.75 0.75 0.75 1"/>
+    </body>
+    <body name="socket12mm" pos="-0.4 0.3 0.1">
+        <freejoint/>
+        <inertial pos="-0.015 0.019 -0.036" mass="0.050465" diaginertia="3.443279e-06 6.479240e-06 6.479312e-06" />
+        <geom name="socket12mm" mesh="socket12mm" class="general" rgba="0.75 0.75 0.75 1"/>
+    </body> -->
+    
+    <body name="socket11mm" pos="-0.4 0.4 0.1">
+        <!-- <joint type="free" class="free_joints"/>-->
+        <freejoint/>
+        <!-- <inertial pos="-0.039 0.019 -0.036" mass="0.049960" diaginertia="3.257448e-06 6.089399e-06 6.089664e-06" /> -->
+        <geom name="socket11mm" mesh="socket11mm" class="visual/tools" />
+        <geom name="socket11mm_collision_geom_0"  class="collision" mesh="socket11mm_collision_geom_0"/>
+        <geom name="socket11mm_collision_geom_1"  class="collision" mesh="socket11mm_collision_geom_1"/>
+        <geom name="socket11mm_collision_geom_2"  class="collision" mesh="socket11mm_collision_geom_2"/>
+        <geom name="socket11mm_collision_geom_3"  class="collision" mesh="socket11mm_collision_geom_3"/>
+        <geom name="socket11mm_collision_geom_4"  class="collision" mesh="socket11mm_collision_geom_4"/>
+        <geom name="socket11mm_collision_geom_5"  class="collision" mesh="socket11mm_collision_geom_5"/>
+        <geom name="socket11mm_collision_geom_6"  class="collision" mesh="socket11mm_collision_geom_6"/>
+        <geom name="socket11mm_collision_geom_7"  class="collision" mesh="socket11mm_collision_geom_7"/>
+        <geom name="socket11mm_collision_geom_8"  class="collision" mesh="socket11mm_collision_geom_8"/>
+        <geom name="socket11mm_collision_geom_9"  class="collision" mesh="socket11mm_collision_geom_9"/>
+        <geom name="socket11mm_collision_geom_10" class="collision" mesh="socket11mm_collision_geom_10"/>
+        <geom name="socket11mm_collision_geom_11" class="collision" mesh="socket11mm_collision_geom_11"/>
+        <geom name="socket11mm_collision_geom_12" class="collision" mesh="socket11mm_collision_geom_12"/>
+        <geom name="socket11mm_collision_geom_13" class="collision" mesh="socket11mm_collision_geom_13"/>
+        <geom name="socket11mm_collision_geom_14" class="collision" mesh="socket11mm_collision_geom_14"/>
+        <geom name="socket11mm_collision_geom_15" class="collision" mesh="socket11mm_collision_geom_15"/>
+        <geom name="socket11mm_collision_geom_16" class="collision" mesh="socket11mm_collision_geom_16"/>
+        <geom name="socket11mm_collision_geom_17" class="collision" mesh="socket11mm_collision_geom_17"/>
+        <geom name="socket11mm_collision_geom_18" class="collision" mesh="socket11mm_collision_geom_18"/>
+        <geom name="socket11mm_collision_geom_19" class="collision" mesh="socket11mm_collision_geom_19"/>
+        <geom name="socket11mm_collision_geom_20" class="collision" mesh="socket11mm_collision_geom_20"/>
+        <geom name="socket11mm_collision_geom_21" class="collision" mesh="socket11mm_collision_geom_21"/>
+        <geom name="socket11mm_collision_geom_22" class="collision" mesh="socket11mm_collision_geom_22"/>
+        <geom name="socket11mm_collision_geom_23" class="collision" mesh="socket11mm_collision_geom_23"/>
+        <geom name="socket11mm_collision_geom_24" class="collision" mesh="socket11mm_collision_geom_24"/>
+        <geom name="socket11mm_collision_geom_25" class="collision" mesh="socket11mm_collision_geom_25"/>
+        <geom name="socket11mm_collision_geom_26" class="collision" mesh="socket11mm_collision_geom_26"/>
+        <geom name="socket11mm_collision_geom_27" class="collision" mesh="socket11mm_collision_geom_27"/>
+        <geom name="socket11mm_collision_geom_28" class="collision" mesh="socket11mm_collision_geom_28"/>
+        <geom name="socket11mm_collision_geom_29" class="collision" mesh="socket11mm_collision_geom_29"/>
+        <geom name="socket11mm_collision_geom_30" class="collision" mesh="socket11mm_collision_geom_30"/>
+
+    </body>
+    <body name="socket10mm" pos="-0.4 0.3 0.1">
+        <!-- <joint type="free" class="free_joints"/>-->
+        <freejoint/>
+        <!-- <inertial pos="-0.062 0.018 -0.036" mass="0.049535" diaginertia="3.114772e-06 5.667508e-06 5.667899e-06" /> -->
+        
+        <geom name="socket10mm" mesh="socket10mm" class="visual/tools" />
+        
+        <geom name="socket10mm_collision_geom_0"  class="collision" mesh="socket10mm_collision_geom_0"/>
+        <geom name="socket10mm_collision_geom_1"  class="collision" mesh="socket10mm_collision_geom_1"/>
+        <geom name="socket10mm_collision_geom_2"  class="collision" mesh="socket10mm_collision_geom_2"/>
+        <geom name="socket10mm_collision_geom_3"  class="collision" mesh="socket10mm_collision_geom_3"/>
+        <geom name="socket10mm_collision_geom_4"  class="collision" mesh="socket10mm_collision_geom_4"/>
+        <geom name="socket10mm_collision_geom_5"  class="collision" mesh="socket10mm_collision_geom_5"/>
+        <geom name="socket10mm_collision_geom_6"  class="collision" mesh="socket10mm_collision_geom_6"/>
+        <geom name="socket10mm_collision_geom_7"  class="collision" mesh="socket10mm_collision_geom_7"/>
+        <geom name="socket10mm_collision_geom_8"  class="collision" mesh="socket10mm_collision_geom_8"/>
+        <geom name="socket10mm_collision_geom_9"  class="collision" mesh="socket10mm_collision_geom_9"/>
+        <geom name="socket10mm_collision_geom_10" class="collision" mesh="socket10mm_collision_geom_10"/>
+        <geom name="socket10mm_collision_geom_11" class="collision" mesh="socket10mm_collision_geom_11"/>
+        <geom name="socket10mm_collision_geom_12" class="collision" mesh="socket10mm_collision_geom_12"/>
+        <geom name="socket10mm_collision_geom_13" class="collision" mesh="socket10mm_collision_geom_13"/>
+        <geom name="socket10mm_collision_geom_14" class="collision" mesh="socket10mm_collision_geom_14"/>
+        <geom name="socket10mm_collision_geom_15" class="collision" mesh="socket10mm_collision_geom_15"/>
+        <geom name="socket10mm_collision_geom_16" class="collision" mesh="socket10mm_collision_geom_16"/>
+        <geom name="socket10mm_collision_geom_17" class="collision" mesh="socket10mm_collision_geom_17"/>
+        <geom name="socket10mm_collision_geom_18" class="collision" mesh="socket10mm_collision_geom_18"/>
+        <geom name="socket10mm_collision_geom_19" class="collision" mesh="socket10mm_collision_geom_19"/>
+        <geom name="socket10mm_collision_geom_20" class="collision" mesh="socket10mm_collision_geom_20"/>
+        <geom name="socket10mm_collision_geom_21" class="collision" mesh="socket10mm_collision_geom_21"/>
+        <geom name="socket10mm_collision_geom_22" class="collision" mesh="socket10mm_collision_geom_22"/>
+        <geom name="socket10mm_collision_geom_23" class="collision" mesh="socket10mm_collision_geom_23"/>
+        <geom name="socket10mm_collision_geom_24" class="collision" mesh="socket10mm_collision_geom_24"/>
+        <geom name="socket10mm_collision_geom_25" class="collision" mesh="socket10mm_collision_geom_25"/>
+        <geom name="socket10mm_collision_geom_26" class="collision" mesh="socket10mm_collision_geom_26"/>
+        <geom name="socket10mm_collision_geom_27" class="collision" mesh="socket10mm_collision_geom_27"/>
+        <geom name="socket10mm_collision_geom_28" class="collision" mesh="socket10mm_collision_geom_28"/>
+
+    </body>
+    
+    
+    <body name="socket9mm" pos="-0.4 0.3 0.1">
+        <!-- <joint type="free" class="free_joints"/>-->
+        <freejoint/>
+        <geom name="socket9mm" mesh="socket9mm" class="visual/tools" />
+        
+        <!-- <inertial pos="-0.089 0.019 -0.038" mass="0.056482" diaginertia="3.730813e-06 6.701920e-06 6.710441e-06" /> -->
+        
+        <geom name="socket9mm_collision_geom_0"  class="collision" mesh="socket9mm_collision_geom_0"/>
+        <geom name="socket9mm_collision_geom_1"  class="collision" mesh="socket9mm_collision_geom_1"/>
+        <geom name="socket9mm_collision_geom_2"  class="collision" mesh="socket9mm_collision_geom_2"/>
+        <geom name="socket9mm_collision_geom_3"  class="collision" mesh="socket9mm_collision_geom_3"/>
+        <geom name="socket9mm_collision_geom_4"  class="collision" mesh="socket9mm_collision_geom_4"/>
+        <geom name="socket9mm_collision_geom_5"  class="collision" mesh="socket9mm_collision_geom_5"/>
+        <geom name="socket9mm_collision_geom_6"  class="collision" mesh="socket9mm_collision_geom_6"/>
+        <geom name="socket9mm_collision_geom_7"  class="collision" mesh="socket9mm_collision_geom_7"/>
+        <geom name="socket9mm_collision_geom_8"  class="collision" mesh="socket9mm_collision_geom_8"/>
+        <geom name="socket9mm_collision_geom_9"  class="collision" mesh="socket9mm_collision_geom_9"/>
+        <geom name="socket9mm_collision_geom_10" class="collision" mesh="socket9mm_collision_geom_10"/>
+        <geom name="socket9mm_collision_geom_11" class="collision" mesh="socket9mm_collision_geom_11"/>
+        <geom name="socket9mm_collision_geom_12" class="collision" mesh="socket9mm_collision_geom_12"/>
+        <geom name="socket9mm_collision_geom_13" class="collision" mesh="socket9mm_collision_geom_13"/>
+        <geom name="socket9mm_collision_geom_14" class="collision" mesh="socket9mm_collision_geom_14"/>
+        <geom name="socket9mm_collision_geom_15" class="collision" mesh="socket9mm_collision_geom_15"/>
+        <geom name="socket9mm_collision_geom_16" class="collision" mesh="socket9mm_collision_geom_16"/>
+        <geom name="socket9mm_collision_geom_17" class="collision" mesh="socket9mm_collision_geom_17"/>
+        <geom name="socket9mm_collision_geom_18" class="collision" mesh="socket9mm_collision_geom_18"/>
+        <geom name="socket9mm_collision_geom_19" class="collision" mesh="socket9mm_collision_geom_19"/>
+        <geom name="socket9mm_collision_geom_20" class="collision" mesh="socket9mm_collision_geom_20"/>
+        <geom name="socket9mm_collision_geom_21" class="collision" mesh="socket9mm_collision_geom_21"/>
+        <geom name="socket9mm_collision_geom_22" class="collision" mesh="socket9mm_collision_geom_22"/>
+        <geom name="socket9mm_collision_geom_23" class="collision" mesh="socket9mm_collision_geom_23"/>
+        <geom name="socket9mm_collision_geom_24" class="collision" mesh="socket9mm_collision_geom_24"/>
+        <geom name="socket9mm_collision_geom_25" class="collision" mesh="socket9mm_collision_geom_25"/>
+        <geom name="socket9mm_collision_geom_26" class="collision" mesh="socket9mm_collision_geom_26"/>
+        <geom name="socket9mm_collision_geom_27" class="collision" mesh="socket9mm_collision_geom_27"/>
+
+    </body>
+    
+    
+    
+    <body name="socket8mm" pos="-0.42 0.3 0.1">
+        <freejoint/>
+        <!-- <inertial pos="-0.108 0.018 -0.036" mass="0.050851" diaginertia="2.994794e-06 5.444613e-06 5.445785e-06" /> -->
+        <geom name="socket8mm" mesh="socket8mm" class="visual/tools" />
+        <geom name="socket8mm_collision_geom_0"  class="collision" mesh="socket8mm_collision_geom_0"/>
+        <geom name="socket8mm_collision_geom_1"  class="collision" mesh="socket8mm_collision_geom_1"/>
+        <geom name="socket8mm_collision_geom_2"  class="collision" mesh="socket8mm_collision_geom_2"/>
+        <geom name="socket8mm_collision_geom_3"  class="collision" mesh="socket8mm_collision_geom_3"/>
+        <geom name="socket8mm_collision_geom_4"  class="collision" mesh="socket8mm_collision_geom_4"/>
+        <geom name="socket8mm_collision_geom_5"  class="collision" mesh="socket8mm_collision_geom_5"/>
+        <geom name="socket8mm_collision_geom_6"  class="collision" mesh="socket8mm_collision_geom_6"/>
+        <geom name="socket8mm_collision_geom_7"  class="collision" mesh="socket8mm_collision_geom_7"/>
+        <geom name="socket8mm_collision_geom_8"  class="collision" mesh="socket8mm_collision_geom_8"/>
+        <geom name="socket8mm_collision_geom_9"  class="collision" mesh="socket8mm_collision_geom_9"/>
+        <geom name="socket8mm_collision_geom_10" class="collision" mesh="socket8mm_collision_geom_10"/>
+        <geom name="socket8mm_collision_geom_11" class="collision" mesh="socket8mm_collision_geom_11"/>
+        <geom name="socket8mm_collision_geom_12" class="collision" mesh="socket8mm_collision_geom_12"/>
+        <geom name="socket8mm_collision_geom_13" class="collision" mesh="socket8mm_collision_geom_13"/>
+        <geom name="socket8mm_collision_geom_14" class="collision" mesh="socket8mm_collision_geom_14"/>
+        <geom name="socket8mm_collision_geom_15" class="collision" mesh="socket8mm_collision_geom_15"/>
+        <geom name="socket8mm_collision_geom_16" class="collision" mesh="socket8mm_collision_geom_16"/>
+        <geom name="socket8mm_collision_geom_17" class="collision" mesh="socket8mm_collision_geom_17"/>
+        <geom name="socket8mm_collision_geom_18" class="collision" mesh="socket8mm_collision_geom_18"/>
+        <geom name="socket8mm_collision_geom_19" class="collision" mesh="socket8mm_collision_geom_19"/>
+        <geom name="socket8mm_collision_geom_20" class="collision" mesh="socket8mm_collision_geom_20"/>
+        <geom name="socket8mm_collision_geom_21" class="collision" mesh="socket8mm_collision_geom_21"/>
+        <geom name="socket8mm_collision_geom_22" class="collision" mesh="socket8mm_collision_geom_22"/>
+        <geom name="socket8mm_collision_geom_23" class="collision" mesh="socket8mm_collision_geom_23"/>
+        <geom name="socket8mm_collision_geom_24" class="collision" mesh="socket8mm_collision_geom_24"/>
+        <geom name="socket8mm_collision_geom_25" class="collision" mesh="socket8mm_collision_geom_25"/>
+        <geom name="socket8mm_collision_geom_26" class="collision" mesh="socket8mm_collision_geom_26"/>
+        <geom name="socket8mm_collision_geom_27" class="collision" mesh="socket8mm_collision_geom_27"/>
+        <geom name="socket8mm_collision_geom_28" class="collision" mesh="socket8mm_collision_geom_28"/>
+        <geom name="socket8mm_collision_geom_29" class="collision" mesh="socket8mm_collision_geom_29"/>
+
+
+    </body>
+    
+    <!-- tools -->
+    
+    <body name="tool1" pos="-0.3 0.6 0.05">
+        <!-- <joint type="free" class="free_joints"/>-->
+        <freejoint/>
+        <!-- <inertial pos="-0.035 -0.070 0.019" mass="0.389433" diaginertia="1.564057e-05 4.110046e-04 4.110158e-04" /> -->
+        <geom name="tool1" mesh="tool1" class="visual/tools" />
+        <geom name="tool1_collision_geom_0"  class="collision" mesh="tool1_collision_geom_0"/>
+        <geom name="tool1_collision_geom_1"  class="collision" mesh="tool1_collision_geom_1"/>
+        <geom name="tool1_collision_geom_2"  class="collision" mesh="tool1_collision_geom_2"/>
+        <geom name="tool1_collision_geom_3"  class="collision" mesh="tool1_collision_geom_3"/>
+        <geom name="tool1_collision_geom_4"  class="collision" mesh="tool1_collision_geom_4"/>
+        <geom name="tool1_collision_geom_5"  class="collision" mesh="tool1_collision_geom_5"/>
+        <geom name="tool1_collision_geom_6"  class="collision" mesh="tool1_collision_geom_6"/>
+        <geom name="tool1_collision_geom_7"  class="collision" mesh="tool1_collision_geom_7"/>
+        <geom name="tool1_collision_geom_8"  class="collision" mesh="tool1_collision_geom_8"/>
+    </body>
+    <body name="tool2" pos="-0.3 0.4 0.05">
+        <!-- <joint type="free" class="free_joints"/>-->
+        <freejoint/>
+        <!-- <inertial pos="-0.084 0.019 0.035" mass="0.111663" diaginertia="5.001001e-06 3.586418e-05 3.586985e-05" /> -->
+        <geom name="tool2" mesh="tool2" class="visual/tools" />
+        <geom name="tool2_collision_geom_0"  class="collision" mesh="tool2_collision_geom_0"/>
+        <geom name="tool2_collision_geom_1"  class="collision" mesh="tool2_collision_geom_1"/>
+        <geom name="tool2_collision_geom_2"  class="collision" mesh="tool2_collision_geom_2"/>
+        <geom name="tool2_collision_geom_3"  class="collision" mesh="tool2_collision_geom_3"/>
+        <geom name="tool2_collision_geom_4"  class="collision" mesh="tool2_collision_geom_4"/>
+        <geom name="tool2_collision_geom_5"  class="collision" mesh="tool2_collision_geom_5"/>
+        <geom name="tool2_collision_geom_6"  class="collision" mesh="tool2_collision_geom_6"/>
+        <geom name="tool2_collision_geom_7"  class="collision" mesh="tool2_collision_geom_7"/>
+    </body>
+    
+    
+    <body name="tool3" pos="-0.1 0.2 0.05">
+        <!-- <joint type="free" class="free_joints"/>-->
+        <freejoint/>
+        <body name="tool3_lower" pos="0 0 0">
+          <!-- <inertial pos="-0.008 0.019 0.035" mass="0.027136" diaginertia="1.668680e-06 2.047423e-06 2.104143e-06" /> -->
+          <geom name="tool3_lower" mesh="tool3_lower" class="visual/tools" />
+          
+          <geom name="tool3_lower_collision_geom_0"  class="collision" mesh="tool3_lower_collision_geom_0"/>
+          <geom name="tool3_lower_collision_geom_1"  class="collision" mesh="tool3_lower_collision_geom_1"/>
+          <geom name="tool3_lower_collision_geom_2"  class="collision" mesh="tool3_lower_collision_geom_2"/>
+          <geom name="tool3_lower_collision_geom_3"  class="collision" mesh="tool3_lower_collision_geom_3"/>
+          <geom name="tool3_lower_collision_geom_4"  class="collision" mesh="tool3_lower_collision_geom_4"/>
+          <geom name="tool3_lower_collision_geom_5"  class="collision" mesh="tool3_lower_collision_geom_5"/>
+          <geom name="tool3_lower_collision_geom_6"  class="collision" mesh="tool3_lower_collision_geom_6"/>
+          <geom name="tool3_lower_collision_geom_7"  class="collision" mesh="tool3_lower_collision_geom_7"/>
+          <geom name="tool3_lower_collision_geom_8"  class="collision" mesh="tool3_lower_collision_geom_8"/>
+          <geom name="tool3_lower_collision_geom_9"  class="collision" mesh="tool3_lower_collision_geom_9"/>
+          <geom name="tool3_lower_collision_geom_10"  class="collision" mesh="tool3_lower_collision_geom_10"/>
+          <geom name="tool3_lower_collision_geom_11"  class="collision" mesh="tool3_lower_collision_geom_11"/>
+          <geom name="tool3_lower_collision_geom_12"  class="collision" mesh="tool3_lower_collision_geom_12"/>
+          <geom name="tool3_lower_collision_geom_13"  class="collision" mesh="tool3_lower_collision_geom_13"/>
+          <geom name="tool3_lower_collision_geom_14"  class="collision" mesh="tool3_lower_collision_geom_14"/>
+          <geom name="tool3_lower_collision_geom_15"  class="collision" mesh="tool3_lower_collision_geom_15"/>
+          <geom name="tool3_lower_collision_geom_16"  class="collision" mesh="tool3_lower_collision_geom_16"/>
+          <geom name="tool3_lower_collision_geom_17"  class="collision" mesh="tool3_lower_collision_geom_17"/>
+          <geom name="tool3_lower_collision_geom_18"  class="collision" mesh="tool3_lower_collision_geom_18"/>
+          <geom name="tool3_lower_collision_geom_19"  class="collision" mesh="tool3_lower_collision_geom_19"/>
+          <geom name="tool3_lower_collision_geom_20"  class="collision" mesh="tool3_lower_collision_geom_20"/>
+          <geom name="tool3_lower_collision_geom_21"  class="collision" mesh="tool3_lower_collision_geom_21"/>
+          <geom name="tool3_lower_collision_geom_22"  class="collision" mesh="tool3_lower_collision_geom_22"/>
+          <geom name="tool3_lower_collision_geom_23"  class="collision" mesh="tool3_lower_collision_geom_23"/>
+          <geom name="tool3_lower_collision_geom_24"  class="collision" mesh="tool3_lower_collision_geom_24"/>
+          <geom name="tool3_lower_collision_geom_25"  class="collision" mesh="tool3_lower_collision_geom_25"/>
+          <geom name="tool3_lower_collision_geom_26"  class="collision" mesh="tool3_lower_collision_geom_26"/>
+          <geom name="tool3_lower_collision_geom_27"  class="collision" mesh="tool3_lower_collision_geom_27"/>
+        </body>
+         
+        <body name="tool3_middle" pos="0 0 0.0017">
+           
+        <joint name="lower_to_middle"
+              type="hinge"
+              pos="-0.017 -0.0095 0.033"
+              axis="0 1 0"
+              range="-1 1"
+              armature="0.0000"
+              damping="0.0000"
+              frictionloss="0.01"/>
+           
+          <!-- <inertial pos="-0.019 0.018 0.034" mass="0.013682" diaginertia="3.112042e-07 3.604354e-07 3.604854e-07"/> -->
+          <geom name="tool3_middle" mesh="tool3_middle" class="visual/tools"  size="0.5 0.5 0.5"/>
+          <geom name="tool3_middle_collision_geom_0"  class="collision" mesh="tool3_middle_collision_geom_0"/>
+          <geom name="tool3_middle_collision_geom_1"  class="collision" mesh="tool3_middle_collision_geom_1"/>
+          <geom name="tool3_middle_collision_geom_2"  class="collision" mesh="tool3_middle_collision_geom_2"/>
+          <geom name="tool3_middle_collision_geom_3"  class="collision" mesh="tool3_middle_collision_geom_3"/>
+          <geom name="tool3_middle_collision_geom_4"  class="collision" mesh="tool3_middle_collision_geom_4"/>
+          <geom name="tool3_middle_collision_geom_5"  class="collision" mesh="tool3_middle_collision_geom_5"/>
+          <geom name="tool3_middle_collision_geom_6"  class="collision" mesh="tool3_middle_collision_geom_6"/>
+          <geom name="tool3_middle_collision_geom_7"  class="collision" mesh="tool3_middle_collision_geom_7"/>
+          <geom name="tool3_middle_collision_geom_8"  class="collision" mesh="tool3_middle_collision_geom_8"/>
+          <geom name="tool3_middle_collision_geom_9"  class="collision" mesh="tool3_middle_collision_geom_9"/>
+          <geom name="tool3_middle_collision_geom_10" class="collision" mesh="tool3_middle_collision_geom_10"/>
+           
+          <body name="tool3_upper" pos="0 0 -0.0018">
+             
+            <joint name="middle_to_upper"
+                type="hinge"
+                pos="-0.0227 0.019 0.007"
+                axis="0 0 1"
+                range="-1 1"
+                armature="0.0000"
+                damping="0.0000"
+                frictionloss="0.01"/>
+                 
+            <!-- <inertial pos="-0.035 0.019 0.035" mass="0.036053" diaginertia="1.673478e-06 2.448329e-06 2.842308e-06" /> -->
+            <geom name="tool3_upper" mesh="tool3_upper" class="visual/tools" />
+            
+            <geom name="tool3_upper_collision_geom_0"  class="collision" mesh="tool3_upper_collision_geom_0"/>
+            <geom name="tool3_upper_collision_geom_1"  class="collision" mesh="tool3_upper_collision_geom_1"/>
+            <geom name="tool3_upper_collision_geom_2"  class="collision" mesh="tool3_upper_collision_geom_2"/>
+            <geom name="tool3_upper_collision_geom_3"  class="collision" mesh="tool3_upper_collision_geom_3"/>
+            <geom name="tool3_upper_collision_geom_4"  class="collision" mesh="tool3_upper_collision_geom_4"/>
+            <geom name="tool3_upper_collision_geom_5"  class="collision" mesh="tool3_upper_collision_geom_5"/>
+            <geom name="tool3_upper_collision_geom_6"  class="collision" mesh="tool3_upper_collision_geom_6"/>
+            <geom name="tool3_upper_collision_geom_7"  class="collision" mesh="tool3_upper_collision_geom_7"/>
+            <geom name="tool3_upper_collision_geom_8"  class="collision" mesh="tool3_upper_collision_geom_8"/>
+            <geom name="tool3_upper_collision_geom_9"  class="collision" mesh="tool3_upper_collision_geom_9"/>
+            <geom name="tool3_upper_collision_geom_10" class="collision" mesh="tool3_upper_collision_geom_10"/>
+            <geom name="tool3_upper_collision_geom_11" class="collision" mesh="tool3_upper_collision_geom_11"/>
+            <geom name="tool3_upper_collision_geom_12" class="collision" mesh="tool3_upper_collision_geom_12"/>
+            
+          </body>
+        </body>
+      </body>
+    
+    
+    
+    
+    
+    <body name="wrench" pos="0.12 0.35 0.07">
+        <joint type="free" class="free_joints"/>
+        <!-- <freejoint/> -->
+        <inertial pos="0.001 0.028 0.001" mass="0.423976" euler="0 0 1.5708" diaginertia="3.147686e-05 2.531946e-03 2.547004e-03" />
+        <!-- <inertial pos="0.001 0.028 0.001" mass="0.423976" diaginertia="3.147686e-05 2.531946e-03 2.547004e-03" /> -->
+        <geom name="wrench" mesh="wrench" class="visual/tools" />
+        <geom name="wrench_collision_geom_0"  class="collision" mesh="wrench_collision_geom_0"/>
+        <geom name="wrench_collision_geom_1"  class="collision" mesh="wrench_collision_geom_1"/>
+        <geom name="wrench_collision_geom_2"  class="collision" mesh="wrench_collision_geom_2"/>
+        <geom name="wrench_collision_geom_3"  class="collision" mesh="wrench_collision_geom_3"/>
+        <geom name="wrench_collision_geom_4"  class="collision" mesh="wrench_collision_geom_4"/>
+        <geom name="wrench_collision_geom_5"  class="collision" mesh="wrench_collision_geom_5"/>
+        <geom name="wrench_collision_geom_6"  class="collision" mesh="wrench_collision_geom_6"/>
+        <geom name="wrench_collision_geom_7"  class="collision" mesh="wrench_collision_geom_7"/>
+        <geom name="wrench_collision_geom_8"  class="collision" mesh="wrench_collision_geom_8"/>
+        <geom name="wrench_collision_geom_9"  class="collision" mesh="wrench_collision_geom_9"/>
+        <geom name="wrench_collision_geom_10" class="collision" mesh="wrench_collision_geom_10"/>
+        <geom name="wrench_collision_geom_11" class="collision" mesh="wrench_collision_geom_11"/>
+        <geom name="wrench_collision_geom_12" class="collision" mesh="wrench_collision_geom_12"/>
+        <geom name="wrench_collision_geom_13" class="collision" mesh="wrench_collision_geom_13"/>
+        <geom name="wrench_collision_geom_14" class="collision" mesh="wrench_collision_geom_14"/>
+
+    </body>
+    
+    
+  </worldbody>
+
+
+    <contact>
+    <exclude body1="left/root" body2="left/link_1"/>
+    <exclude body1="right/root" body2="right/link_1"/>
+    <exclude body1="left/carriage_left" body2="left/carriage_right"/>
+          <exclude body1="tool3_lower" body2="tool3_middle"/>
+      <exclude body1="tool3_middle" body2="tool3_upper"/>
+      <exclude body1="tool3_lower" body2="tool3_upper"/>
+    <exclude body1="right/carriage_left" body2="right/carriage_right"/>
+  </contact>
+  
+    <equality>
+  <joint name="left_gripper" class="gripper" joint1="left/left_carriage_joint" joint2="left/right_carriage_joint" polycoef="0 1 0 0 0"/>
+  <joint name="right_gripper" class="gripper" joint1="right/left_carriage_joint" joint2="right/right_carriage_joint" polycoef="0 1 0 0 0"/>
+  </equality>
+
+
+  <actuator>
+    <position name="left/joint_0" joint="left/joint_0" class="joint_0"/>
+    <position name="left/joint_1" joint="left/joint_1" class="joint_1"/>
+    <position name="left/joint_2" joint="left/joint_2" class="joint_2"/>
+    <position name="left/joint_3" joint="left/joint_3" class="joint_3"/>
+    <position name="left/joint_4" joint="left/joint_4" class="joint_4"/>
+    <position name="left/joint_5" joint="left/joint_5" class="joint_5"/>
+    <position name="left/gripper" joint="left/left_carriage_joint" class="gripper"/>
+    
+    <position name="right/joint_0" joint="right/joint_0" class="joint_0"/>
+    <position name="right/joint_1" joint="right/joint_1" class="joint_1"/>
+    <position name="right/joint_2" joint="right/joint_2" class="joint_2"/>
+    <position name="right/joint_3" joint="right/joint_3" class="joint_3"/>
+    <position name="right/joint_4" joint="right/joint_4" class="joint_4"/>
+    <position name="right/joint_5" joint="right/joint_5" class="joint_5"/>
+    <position name="right/gripper" joint="right/left_carriage_joint" class="gripper"/>
+
+  </actuator>
+
+
+  <keyframe>
+    <key name="home" time="0"
+     qpos="-0.0601977 0.00658107 0.0437637 7.61878e-06 0.0242872 0.00287551 0.00784768 0.00864373 -0.0464919 -0.0461595 -0.00884699 0.00636264 -0.0346887 0.051069 0.00795854 0.00852404 -0.273262 0.200307 -0.00178577 0.864574 -0.000555893 -0.00143421 -0.502503 2.20169 -0.277331 0.330467 -0.0188315 0.723682 -0.21378 0.605441 0.253028 0.0729658 0.240164 0.0587503 0.517169 0.453436 -0.617528 0.381564 -0.248181 0.416776 -0.0496048 0.0922773 0.834012 0.523145 -0.149095 -0.0889127 0.613135 0.0423641 -0.862998 0.000909718 0.000495856 -0.505206 -0.135194 0.555515 0.0424095 0.262586 -0.154286 -0.952097 -0.0274843 -0.0695153 0.356196 -0.0119248 0.986805 -0.14246 -0.0475128 0.0605311 -0.137274 0.326044 -0.0254815 -0.543589 -0.186913 -0.0493616 -0.816785 0.734653 1.00138 0.0223687 0.275869 0.00763056 -0.421974 0.0195484 0.0182694 0.906213"
+       ctrl="-1 0.55 0.55 0 0 0 0 1 0.55 0.55 0 0 0 0"
+
+/>
+  </keyframe>
+</mujoco>
+
+
